@@ -1,8 +1,18 @@
 grammar gramatica;
 
 programa
-      : instrucciones EOF
+      : declaraciones instrucciones EOF
       | EOF;
+declaraciones
+      : PROCEDIMIENTO IDENTIFICADOR parametros DP instrucciones FIN PUNTO declaraciones
+      | ;
+parametros
+      : IMPORTA VARIABLE tipoVariable IDENTIFICADOR listaParametros exporta;
+exporta
+      : EXPORTA VARIABLE tipoVariable IDENTIFICADOR listaParametros;
+listaParametros
+      : PYC tipoVariable IDENTIFICADOR listaParametros
+      | ;
 instrucciones
       : nominacion PUNTO instrucciones
       | AREGLO VARIABLE tipoVariable IDENTIFICADOR LONGITUD expresion listaArreglo PUNTO instrucciones
@@ -71,6 +81,12 @@ LINE_COMMENT
       : '>>' ~[\r\n]* -> skip ;
 WS    : [ \t\r\n]+ -> skip ;
 
+PROCEDIMIENTO
+      : [P][Rr][Oo][Cc][Ee][Dd][Ii][Mm][Ii][Ee][Nn][Tt][Oo];
+IMPORTA
+      : [Q][Uu][Ee][ ][I][Mm][Pp][Oo][Rr][Tt][Aa];
+EXPORTA
+      : [Q][Uu][Ee][ ][E][Xx][Pp][Oo][Rr][Tt][Aa];
 VARIABLE
       : [V][Aa][Rr][Ii][Aa][Bb][Ll][Ee];
 CONSTANTE

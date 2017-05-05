@@ -1,3 +1,18 @@
+PROCEDIMIENTO calificar QUE IMPORTA VARIABLE ENTERA id;
+                                             DE CARACTERES nombre;
+                                             REAL nota;
+                                             LOGICA aprobo
+                        QUE EXPORTA VARIABLE DE CARACTERES saludo:
+
+    SI aprobo:
+        saludo ES IGUAL A "Felicitaciones" + nombre + ", has aprovado".
+    EN OTRO CASO:
+        saludo = "Tienes que venir a recuperaciones" + nombre.
+    FIN.
+
+FIN.
+
+
 VARIABLE  DE CARACTERES nombreE.
 Variable  Logica estudiante.
 VARIABLE  ENTERA edadE ES IGUAL A 10.

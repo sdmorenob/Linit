@@ -17,6 +17,46 @@ public interface gramaticaListener extends ParseTreeListener {
 	 */
 	void exitPrograma(gramaticaParser.ProgramaContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link gramaticaParser#declaraciones}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclaraciones(gramaticaParser.DeclaracionesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramaticaParser#declaraciones}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclaraciones(gramaticaParser.DeclaracionesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gramaticaParser#parametros}.
+	 * @param ctx the parse tree
+	 */
+	void enterParametros(gramaticaParser.ParametrosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramaticaParser#parametros}.
+	 * @param ctx the parse tree
+	 */
+	void exitParametros(gramaticaParser.ParametrosContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gramaticaParser#exporta}.
+	 * @param ctx the parse tree
+	 */
+	void enterExporta(gramaticaParser.ExportaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramaticaParser#exporta}.
+	 * @param ctx the parse tree
+	 */
+	void exitExporta(gramaticaParser.ExportaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gramaticaParser#listaParametros}.
+	 * @param ctx the parse tree
+	 */
+	void enterListaParametros(gramaticaParser.ListaParametrosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramaticaParser#listaParametros}.
+	 * @param ctx the parse tree
+	 */
+	void exitListaParametros(gramaticaParser.ListaParametrosContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link gramaticaParser#instrucciones}.
 	 * @param ctx the parse tree
 	 */
