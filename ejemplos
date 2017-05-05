@@ -1,0 +1,47 @@
+PROCEDIMIENTO calificar QUE IMPORTA VARIABLE ENTERA id;
+                                             DE CARACTERES nombre;
+                                             REAL nota;
+                                             LOGICA aprobo
+                        QUE EXPORTA VARIABLE DE CARACTERES saludo:
+
+    SI aprobo:
+        saludo ES IGUAL A "Felicitaciones" + nombre + ", has aprovado".
+    EN OTRO CASO:
+        saludo = "Tienes que venir a recuperaciones" + nombre.
+    FIN.
+
+FIN.
+
+
+VARIABLE  DE CARACTERES nombreE.
+Variable  Logica estudiante.
+VARIABLE  ENTERA edadE ES IGUAL A 10.
+Variable  Real peso Es Igual A 30,54. >> Edad en kilos
+
+CONSTante De CarACtEreS noMBrEm Es IGuAl A "Marizol".
+Constante Logica maestra = Verdadero.
+CONSTANTE ENTERA edadM ES IGUAL A 30.
+CONSTANTE REAL salario = 1049,213.
+
+ARREGLO VARIABLE DE CARACTERES alumnos DE LONGITUD 132;12,0.
+
+nombre = "Carlos".
+alumnos[edad * peso / (edad + peso)] ES IGUAL A nombre.
+
+SI alumnos[1;1] ES DIFERENTE DE "Carlos":
+  edad = 18.
+O SI alumnos[1;1] /= nombreM:
+  edad = 23.
+  VARIABLE DE CARACTERES resultado ES IGUAL A "No se quien eres".
+EN OTRO CASO:
+FIN.
+
+REPETIR 5 * 10 VECES:
+  IMPRIMIR EN CONSOLA "Hola Mundo"; "Soy"; nombreE.
+FIN.
+
+REPETIR MIENTRAS alumnos[1;1] ES DIFERENTE DE "Carlos" SEA FALSO:
+  alumnos[1;1] = nombreE.
+FIN.
+
+CAPTURAR DE CONSOLA nombreE.
