@@ -1,8 +1,8 @@
-PROCEDIMIENTO calificar QUE IMPORTA VARIABLE ENTERA id;
+PROCEDIMIENTO calificar IMPORTA VARIABLE ENTERA id;
                                              DE CARACTERES nombre;
                                              REAL nota;
                                              LOGICA aprobo
-                        QUE EXPORTA VARIABLE DE CARACTERES saludo:
+                        EXPORTA VARIABLE DE CARACTERES saludo:
 
     SI aprobo:
         saludo ES IGUAL A "Felicitaciones" + nombre + ", has aprovado".

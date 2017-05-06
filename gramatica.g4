@@ -1,4 +1,4 @@
-grammar gramatica;
+grammar Gramatica;
 
 programa
       : declaraciones instrucciones EOF
@@ -15,16 +15,27 @@ listaParametros
       | ;
 instrucciones
       : nominacion PUNTO instrucciones
-      | AREGLO VARIABLE tipoVariable IDENTIFICADOR LONGITUD expresion listaArreglo PUNTO instrucciones
-      | IDENTIFICADOR (CUADRADOI expresion listaArreglo CUADRADOD)? igualdad PUNTO instrucciones
-      | SI expresion DP instrucciones listaCondicional FIN PUNTO instrucciones
+      | arreglo PUNTO instrucciones
+      | llamadaIdentificador PUNTO instrucciones
+      | condicional PUNTO instrucciones
       | ciclo PUNTO instrucciones
-      | IMPRIMIR expresion listaImpresion PUNTO instrucciones
-      | CAPTURAR IDENTIFICADOR PUNTO instrucciones
+      | impresion PUNTO instrucciones
+      | entrada PUNTO instrucciones
       | ;
 nominacion
       : VARIABLE tipoVariable IDENTIFICADOR igualdad?
       | CONSTANTE tipoVariable IDENTIFICADOR igualdad;
+arreglo
+      : AREGLO VARIABLE tipoVariable IDENTIFICADOR LONGITUD expresion listaArreglo;
+llamadaIdentificador
+      : IDENTIFICADOR (CUADRADOI expresion listaArreglo CUADRADOD)? igualdad
+      | IDENTIFICADOR (IMPORTA expresion listaArreglo)? (EXPORTA IDENTIFICADOR listaIdentificadores)?;
+condicional
+      : SI expresion DP instrucciones listaCondicional FIN;
+impresion
+      : IMPRIMIR expresion listaImpresion;
+entrada
+      : CAPTURAR IDENTIFICADOR;
 tipoVariable
       : ENTERA
       | REAL
@@ -33,6 +44,9 @@ tipoVariable
 igualdad
       : IGUAL expresion
       | SIGNOIGUAL expresion;
+listaIdentificadores
+      : PYC IDENTIFICADOR listaIdentificadores
+      | ;
 expresion
       : operacionOY;
 operacionOY
@@ -84,9 +98,9 @@ WS    : [ \t\r\n]+ -> skip ;
 PROCEDIMIENTO
       : [P][Rr][Oo][Cc][Ee][Dd][Ii][Mm][Ii][Ee][Nn][Tt][Oo];
 IMPORTA
-      : [Q][Uu][Ee][ ][I][Mm][Pp][Oo][Rr][Tt][Aa];
+      : [I][Mm][Pp][Oo][Rr][Tt][Aa];
 EXPORTA
-      : [Q][Uu][Ee][ ][E][Xx][Pp][Oo][Rr][Tt][Aa];
+      : [E][Xx][Pp][Oo][Rr][Tt][Aa];
 VARIABLE
       : [V][Aa][Rr][Ii][Aa][Bb][Ll][Ee];
 CONSTANTE
