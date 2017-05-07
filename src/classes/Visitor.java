@@ -261,6 +261,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
 
     @Override
     public T visitComparacion( GramaticaParser.ComparacionContext ctx ){
+
         if( ctx.comparacion( ) != null ){
             Object comp = visitComparacion( ctx.comparacion( ) );
             Object arit = visitAritmetica( ctx.aritmetica( ) );
@@ -386,12 +387,14 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
         }else{
             return visitAritmetica( ctx.aritmetica( ) );
         }
+
     }
 
   	@Override
     public T visitOpcomparacion( GramaticaParser.OpcomparacionContext ctx ){
-        // ...
+
         return null;
+
     }
 
   	@Override
