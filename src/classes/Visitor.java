@@ -184,6 +184,8 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
     @Override
     public T visitCondicional( GramaticaParser.CondicionalContext ctx ){
 
+        HashMap<String, Object> table2 = table;
+        table = (HashMap) table2.clone( );
         Object exp = visitExpresion( ctx.expresion( ) );
         if( exp instanceof Boolean ){
             if( (Boolean) exp ){
@@ -198,6 +200,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             error( line, col, " No se puede evaluar la expresión de tipo \"" + type +
               "\" como una expresión de tipo LOGICO." );
         }
+        table = table2;
         return null;
 
     }
@@ -209,10 +212,16 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             Object exp = visitExpresion( ctx.expresion( ) );
             if( exp instanceof Boolean ){
                 Boolean value = (Boolean) exp;
+                HashMap<String, Object> table2 = table;
                 while( value.equals( (Boolean) visitLogico( ctx.logico( ) ) ) ){
+                    table = (HashMap) table2.clone( );
                     visitInstrucciones( ctx.instrucciones( ) );
                     value = (Boolean) visitExpresion( ctx.expresion( ) );
+                    for( String g : table2.keySet( ) ){
+                        table2.replace( g, table.get( g ) );
+                    }
                 }
+                table = table2;
             }else{
                 int line = ctx.REPETIR( ).getSymbol( ).getLine( );
                 int col = ctx.REPETIR( ).getSymbol( ).getCharPositionInLine( ) + 1;
@@ -230,10 +239,13 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                   error( line, col, " No se puede iterar un numero negativo de veces.\n" +
                   "REPETIR " + times.toString( ) + " VECES:"  );
                 }
+                HashMap<String, Object> table2 = table;
                 while( times.compareTo( 0 ) > 0 ){
+                    table = (HashMap) table2.clone( );
                     visitInstrucciones( ctx.instrucciones( ) );
                     times--;
                 }
+                table = table2;
             }else{
                 int line = ctx.REPETIR( ).getSymbol( ).getLine( );
                 int col = ctx.REPETIR( ).getSymbol( ).getCharPositionInLine( ) + 1;
@@ -329,6 +341,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
             error( line, col, " La variable \"" + name + "\" aún no ha sido declarada." );
         }else{
+            System.out.print( "  " );
             String sc = System.console( ).readLine( );
             if( data instanceof Integer ){
                 try{

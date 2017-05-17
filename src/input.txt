@@ -40,8 +40,12 @@ VARIABLE ENTERA i = 1.
 REPETIR MIENTRAS i <= 4 SEA VERDADERO:
     IMPRIMIR EN CONSOLA i.
     i = i + 1.
+    VARIABLE ENTERA k = 0.
+    IMPRIMIR EN CONSOLA k.
+    k = k + 1.
 FIN.
 
+IMPRIMIR EN CONSOLA "Ingrese el valor de verdad de si es o no un estudiante: ".
 CAPTURAR DE CONSOLA estudiante.
 
 IMPRIMIR EN CONSOLA estudiante.
