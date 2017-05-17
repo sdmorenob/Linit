@@ -1,5 +1,47 @@
-VARIABLE  DE CARACTERES nombreE.
-VARIABLE  ENTERA edadE ES IGUAL A 0.
-VARIABLE LOGICA a ES IGUAL A VERDADERO <= FALSO.
+VARIABLE  DE CARACTERES nombre.
+VARIABLE  LOGICA estudiante = Falso.
+VARIABLE  ENTERA edad ES IGUAL A 10.
+VARIABLE  REAL peso = 30,54.
 
-IMPRIMIR EN CONSOLA "142,128 >= 143,12".
+nombre = "Sebastian".
+IMPRIMIR EN CONSOLA nombre.
+IMPRIMIR EN Consola edad.
+IMPRIMIR EN Consola estudiante.
+IMPRIMIR EN CONSOLA "------------";"---------------".
+
+edad = 20 * 60.
+
+IMPRIMIR EN Consola edad.
+
+ARREGLO VARIABLE arreglo.
+ARREGLO VARIABLE arreglo2.
+ARREGLO VARIABLE arreglo3.
+
+arreglo[1] = "Hola Mundo".
+arreglo[2] = 5.
+arreglo[3] = arreglo2.
+arreglo[3;1] = arreglo3.
+arreglo[3;1;1] = "Hello World".
+
+IMPRIMIR EN CONSOLA "".
+IMPRIMIR EN CONSOLA arreglo[1].
+IMPRIMIR EN CONSOLA arreglo[2].
+IMPRIMIR EN CONSOLA arreglo[3;1;1].
+
+SI estudiante:
+    IMPRIMIR EN CONSOLA "Si es un estudiante"; nombre.
+O SI NO SUCEDE estudiante:
+    IMPRIMIR EN CONSOLA nombre + " no es un estudiante.".
+EN OTRO CASO:
+    IMPRIMIR EN CONSOLA "Prueba".
+FIN.
+
+VARIABLE ENTERA i = 1.
+REPETIR MIENTRAS i <= 4 SEA VERDADERO:
+    IMPRIMIR EN CONSOLA i.
+    i = i + 1.
+FIN.
+
+CAPTURAR DE CONSOLA estudiante.
+
+IMPRIMIR EN CONSOLA estudiante.

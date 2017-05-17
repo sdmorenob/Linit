@@ -26,7 +26,7 @@ nominacion
       : VARIABLE tipoVariable IDENTIFICADOR igualdad?
       | CONSTANTE tipoVariable IDENTIFICADOR igualdad;
 arreglo
-      : AREGLO VARIABLE tipoVariable IDENTIFICADOR LONGITUD expresion listaArreglo;
+      : AREGLO VARIABLE IDENTIFICADOR;
 llamadaIdentificador
       : IDENTIFICADOR (CUADRADOI expresion listaArreglo CUADRADOD)? igualdad
       | IDENTIFICADOR (IMPORTA expresion listaArreglo)? (EXPORTA IDENTIFICADOR listaIdentificadores)?;
@@ -93,7 +93,8 @@ listaImpresion
       | ;
 LINE_COMMENT
       : '>>' ~[\r\n]* -> skip ;
-WS    : [ \t\r\n]+ -> skip ;
+WS
+      : [ \t\r\n]+ -> skip ;
 
 PROCEDIMIENTO
       : [P][Rr][Oo][Cc][Ee][Dd][Ii][Mm][Ii][Ee][Nn][Tt][Oo];
@@ -177,8 +178,6 @@ PUNTO
       : '.';
 AREGLO
       : [A][Rr][Rr][Ee][Gg][Ll][Oo];
-LONGITUD
-      : [D][Ee][ ][L][Oo][Nn][Gg][Ii][Tt][Uu][Dd];
 CUADRADOI
       : '[';
 CUADRADOD
