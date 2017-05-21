@@ -1,8 +1,8 @@
-PROCEDIMIENTO calificar QUE IMPORTA VARIABLE ENTERA id;
+PROCEDIMIENTO calificar IMPORTA VARIABLE ENTERA id;
                                              DE CARACTERES nombre;
                                              REAL nota;
                                              LOGICA aprobo
-                        QUE EXPORTA VARIABLE DE CARACTERES saludo:
+                        EXPORTA VARIABLE DE CARACTERES saludo:
 
     SI aprobo:
         saludo ES IGUAL A "Felicitaciones" + nombre + ", has aprovado".
@@ -23,7 +23,7 @@ Constante Logica maestra = Verdadero.
 CONSTANTE ENTERA edadM ES IGUAL A 30.
 CONSTANTE REAL salario = 1049,213.
 
-ARREGLO VARIABLE DE CARACTERES alumnos DE LONGITUD 132;12,0.
+ARREGLO VARIABLE alumnos.
 
 nombre = "Carlos".
 alumnos[edad * peso / (edad + peso)] ES IGUAL A nombre.
