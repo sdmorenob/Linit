@@ -1,7 +1,23 @@
-VARIABLE  DE CARACTERES nombre.
-VARIABLE  LOGICA estudiante = Falso.
-VARIABLE  ENTERA edad ES IGUAL A 10.
-VARIABLE  REAL peso = 30,54.
+PROCEDIMIENTO calificar IMPORTA VARIABLE ENTERA id;
+                                         DE CARACTERES nombre;
+                                         REAL nota;
+                                         LOGICA aprobo
+                        EXPORTA VARIABLE DE CARACTERES saludo:
+
+    SI aprobo:
+        saludo ES IGUAL A "Felicitaciones " + nombre + ", has aprovado".
+    EN OTRO CASO:
+        saludo = "Tienes que venir a recuperaciones" + nombre.
+    FIN.
+
+FIN.
+
+
+VARIABLE DE CARACTERES nombre.
+VARIABLE LOGICA estudiante = Falso.
+VARIABLE ENTERA edad ES IGUAL A 10.
+VARIABLE REAL peso = 30,54.
+VARIABLE DE CARACTERES resultado = "///".
 
 nombre = "Sebastian".
 IMPRIMIR EN CONSOLA nombre.
@@ -28,8 +44,11 @@ IMPRIMIR EN CONSOLA arreglo[1].
 IMPRIMIR EN CONSOLA arreglo[2].
 IMPRIMIR EN CONSOLA arreglo[3;1;1].
 
+estudiante = VERDADERO.
 SI estudiante:
     IMPRIMIR EN CONSOLA "Si es un estudiante"; nombre.
+    calificar IMPORTA 1; nombre; 4,53; estudiante.
+    IMPRIMIR EN CONSOLA resultado.
 O SI NO SUCEDE estudiante:
     IMPRIMIR EN CONSOLA nombre + " no es un estudiante.".
 EN OTRO CASO:

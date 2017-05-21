@@ -7,9 +7,11 @@ declaraciones
       : PROCEDIMIENTO IDENTIFICADOR parametros DP instrucciones FIN PUNTO declaraciones
       | ;
 parametros
-      : IMPORTA VARIABLE tipoVariable IDENTIFICADOR listaParametros exporta;
+      : IMPORTA VARIABLE tipoVariable IDENTIFICADOR listaParametros exporta
+      | exporta;
 exporta
-      : EXPORTA VARIABLE tipoVariable IDENTIFICADOR listaParametros;
+      : EXPORTA VARIABLE tipoVariable IDENTIFICADOR listaParametros
+      | ;
 listaParametros
       : PYC tipoVariable IDENTIFICADOR listaParametros
       | ;

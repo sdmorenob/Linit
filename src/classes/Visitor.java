@@ -10,13 +10,15 @@ import java.lang.Math;
 public class Visitor<T> extends GramaticaBaseVisitor<T>{
 
     private HashMap<String, Object> table = new HashMap<>( );
+    private HashMap<String, Object> tableF = new HashMap<>( );
+    private ArrayList<Object> parametros;
 
     @Override
     public T visitPrograma( GramaticaParser.ProgramaContext ctx ){
 
         if( ctx.declaraciones( ) != null ){
             visitDeclaraciones( ctx.declaraciones( ) );
-            if ( ctx.instrucciones( ) != null ){
+            if( ctx.instrucciones( ) != null ){
                 visitInstrucciones( ctx.instrucciones( ) );
             }
         }
@@ -27,7 +29,19 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
     @Override
     public T visitDeclaraciones( GramaticaParser.DeclaracionesContext ctx ){
 
-        // ...
+        if( ctx.PROCEDIMIENTO( ) != null ){
+            String name = ctx.IDENTIFICADOR( ).getText( );
+            if( tableF.get( name.toLowerCase( ) ) != null ){
+                int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
+                int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                error( line, col, " El procedimiento \"" + name + "\" ya ha sido declarado." );
+            }else{
+                visitParametros( ctx.parametros( ) );
+                parametros.add( 0, ctx.instrucciones( ) );
+                tableF.put( name.toLowerCase( ), parametros );
+            }
+            return visitDeclaraciones( ctx.declaraciones( ) );
+        }
         return null;
 
     }
@@ -35,7 +49,69 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
     @Override
     public T visitParametros( GramaticaParser.ParametrosContext ctx ){
 
-        // ...
+        HashMap<String, Object> table2 = table;
+        table = new HashMap<>( );
+        parametros = new ArrayList<>( );
+        ArrayList<Object> import_ = new ArrayList( );
+        parametros.add( import_ );
+        if( ctx.IMPORTA( ) != null ){
+            String name = ctx.IDENTIFICADOR( ).getText( );
+            Object aux = visitTipoVariable( ctx.tipoVariable( ) );
+            import_ = (ArrayList) parametros.remove( parametros.size( ) - 1 );
+            import_.add( name.toLowerCase( ) );
+            parametros.add( import_ );
+            table.put( name.toLowerCase( ), aux );
+            visitListaParametros( ctx.listaParametros( ) );
+        }
+        visitExporta( ctx.exporta( ) );
+        parametros.add( 0, table );
+        table = table2;
+        return null;
+
+    }
+
+    @Override
+    public T visitListaParametros( GramaticaParser.ListaParametrosContext ctx ){
+
+        if( ctx.PYC( ) != null ){
+            ArrayList<Object> param = (ArrayList) parametros.remove( parametros.size( ) - 1 );
+            String name = ctx.IDENTIFICADOR( ).getText( );
+            if( table.get( name.toLowerCase( ) ) != null ){
+                int line = ctx.PYC( ).getSymbol( ).getLine( );
+                int col = ctx.PYC( ).getSymbol( ).getCharPositionInLine( ) + 2;
+                error( line, col, " El parametro \"" + name + "\" ya ha sido declarado." );
+            }else{
+                Object aux = visitTipoVariable( ctx.tipoVariable( ) );
+                param.add( name.toLowerCase( ) );
+                table.put( name.toLowerCase( ), aux );
+                parametros.add( param );
+                visitListaParametros( ctx.listaParametros( ) );
+            }
+        }
+        return null;
+
+    }
+
+    @Override
+    public T visitExporta( GramaticaParser.ExportaContext ctx ){
+
+        if( ctx.EXPORTA( ) != null ){
+            ArrayList<Object> export = new ArrayList<>( );
+            String name = ctx.IDENTIFICADOR( ).getText( );
+            if( table.get( name.toLowerCase( ) ) != null ){
+                int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
+                int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                error( line, col, " El parametro \"" + name + "\" ya ha sido declarado." );
+            }else{
+                Object aux = visitTipoVariable( ctx.tipoVariable( ) );
+                export.add( name.toLowerCase( ) );
+                table.put( name.toLowerCase( ), aux );
+                parametros.add( export );
+                visitListaParametros( ctx.listaParametros( ) );
+            }
+            return null;
+        }
+        parametros.add( new ArrayList( ) );
         return null;
 
     }
@@ -60,8 +136,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
         }else{
             return null;
         }
-        visitInstrucciones( ctx.instrucciones( ) );
-        return null;
+        return visitInstrucciones( ctx.instrucciones( ) );
     }
 
     @Override
@@ -69,7 +144,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
 
         if( ctx.VARIABLE( ) != null ){
             String name = ctx.IDENTIFICADOR( ).getText( );
-            if( table.get( name ) != null ){
+            if( table.get( name.toLowerCase( ) ) != null ){
                 int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                 int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
                 error( line, col, " La variable \"" + name + "\" ya ha sido declarada." );
@@ -86,11 +161,11 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                         error( line, col, " El valor asignado a la variable \"" + name + "\" no es de tipo " + type + "." );
                     }
                 }
-                table.put( name, aux );
+                table.put( name.toLowerCase( ), aux );
             }
         }else{
             String name = ctx.IDENTIFICADOR( ).getText( );
-            if( table.get( name ) != null ){
+            if( table.get( name.toLowerCase( ) ) != null ){
                 int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                 int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
                 error( line, col, " La variable \"" + name + "\" ya ha sido declarada." );
@@ -106,7 +181,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                     error( line, col, " El valor asignado a la variable \"" + name + "\" no es de tipo " + type + "." );
                 }
                 final Object aux3 = aux2;
-                table.put( name, aux3 );
+                table.put( name.toLowerCase( ), aux3 );
             }
         }
         return null;
@@ -117,13 +192,13 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
     public T visitArreglo( GramaticaParser.ArregloContext ctx ){
 
         String name = ctx.IDENTIFICADOR( ).getText( );
-        if( table.get( name ) != null ){
+        if( table.get( name.toLowerCase( ) ) != null ){
             int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
             int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
             error( line, col, " La variable \"" + name + "\" ya ha sido declarada." );
         }else{
             ArrayList<T> aux = new ArrayList<>( );
-            table.put( name, aux );
+            table.put( name.toLowerCase( ), aux );
         }
         return null;
     }
@@ -134,16 +209,16 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
         if( ctx.igualdad( ) != null ){
             String name = ctx.IDENTIFICADOR( 0 ).getText( );
             if( ctx.CUADRADOI( ) != null ){
-                if( table.get( name ) == null ){
+                if( table.get( name.toLowerCase( ) ) == null ){
                     int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                     int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
-                    error( line, col, " El arreglo \"" + name + "\" aún no ha sido declarado." );
+                    error( line, col, " El arreglo \"" + name + "\" aun no ha sido declarado." );
                 }else{
-                    Object aux = table.get( name );
+                    Object aux = table.get( name.toLowerCase( ) );
                     if( aux instanceof ArrayList ){
                         aux = getNewArray( ctx, ctx.listaArreglo( ), visitExpresion( ctx.expresion( ) ),
                                 (ArrayList) aux, ctx.igualdad( ).expresion( ), name + "[ " );
-                        table.replace( name, aux );
+                        table.replace( name.toLowerCase( ), aux );
                     }else{
                         int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                         int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
@@ -151,15 +226,15 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                     }
                 }
             }else{
-                if( table.get( name ) == null ){
+                if( table.get( name.toLowerCase( ) ) == null ){
                     int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                     int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
-                    error( line, col, " La variable \"" + name + "\" aún no ha sido declarada." );
+                    error( line, col, " La variable \"" + name + "\" aun no ha sido declarada." );
                 }else{
-                    Object aux = table.get( name );
+                    Object aux = table.get( name.toLowerCase( ) );
                     Object aux2 = visitExpresion( ctx.igualdad( ).expresion( ) );
                     if( aux.getClass( ) == aux2.getClass( ) ){
-                        table.replace( name, aux2 );
+                        table.replace( name.toLowerCase( ), aux2 );
                     }else{
                         int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                         int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
@@ -169,23 +244,104 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                 }
             }
         }else{
-            String name = ctx.IDENTIFICADOR( 1 ).getText( );
-            if( table.get( name ) == null ){
-                int line = ctx.IDENTIFICADOR( 1 ).getSymbol( ).getLine( );
-                int col = ctx.IDENTIFICADOR( 1 ).getSymbol( ).getCharPositionInLine( ) + 1;
+            String name = ctx.IDENTIFICADOR( 0 ).getText( );
+            if( tableF.get( name.toLowerCase( ) ) == null ){
+                int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
+                int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
                 error( line, col, " El procedimiento \"" + name + "\" no ha sido declarado." );
             }else{
-                // ...
+                ArrayList<Object> function = (ArrayList) tableF.get( name.toLowerCase( ) );
+                GramaticaParser.InstruccionesContext ctxF = (GramaticaParser.InstruccionesContext) function.remove( 0 );
+                HashMap<String, Object> table2 = (HashMap) function.remove( 0 );
+                ArrayList<Object> parameter = (ArrayList) function.remove( 0 );
+                if( ctx.IMPORTA( ) != null && parameter.size( ) < 1 ){
+                    int line = ctx.IMPORTA( ).getSymbol( ).getLine( );
+                    int col = ctx.IMPORTA( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                    error( line, col, " El numero de parametros con el que es invocado el procedimiento \"" +
+                           name + "\" no coincide con el numero de parametros que se definio." );
+                }
+                if( ctx.IMPORTA( ) != null ){
+                    GramaticaParser.ListaArregloContext lac = ctx.listaArreglo( );
+                    Object val = visitExpresion( ctx.expresion( ) );
+                    for( Object var : parameter ){
+                        if( val != null ){
+                            if( table2.get( var ).getClass( ) == val.getClass( ) ){
+                                table2.replace( (String) var, val );
+                            }else{
+                                int line = ctx.IMPORTA( ).getSymbol( ).getLine( );
+                                int col = ctx.IMPORTA( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                                String aux1 = translateType( table2.get( var ) );
+                                String aux2 = translateType( val );
+                                error( line, col, " El valor asignado al parametro \"" + var + "\" no es de tipo " + aux1 + "\n"
+                                        + aux1 + " = " + aux2);
+                            }
+                        }else{
+                            int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
+                            int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
+                            error( line, col, " El numero de parametros con el que es invocado el procedimiento \"" +
+                                   name + "\" no coincide con el numero de parametros que se definio." );
+                        }
+                        val = visitListaArreglo( lac );
+                        lac = lac.listaArreglo( );
+                    }
+                    if( val != null ){
+                        int line = ctx.IMPORTA( ).getSymbol( ).getLine( );
+                        int col = ctx.IMPORTA( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                        error( line, col, " El numero de parametros que importa el procedimiento \"" +
+                               name + "\" no coincide con el numero de parametros que se definio." );
+                    }
+                }
+                HashMap<String, String> map = new HashMap<>( );
+                parameter = (ArrayList) function.remove( 0 );
+                if( ctx.EXPORTA( ) != null ){
+                    GramaticaParser.ListaIdentificadoresContext lac = ctx.listaIdentificadores( );
+                    String val = ctx.IDENTIFICADOR( 1 ).getText( );
+                    for( Object var : parameter ){
+                        if( val != null ){
+                            map.put( (String) var, val );
+                        }else{
+                            int line = ctx.EXPORTA( ).getSymbol( ).getLine( );
+                            int col = ctx.EXPORTA( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                            error( line, col, " El numero de parametros con el que es invocado el procedimiento \"" +
+                                   name + "\" no coincide con el numero de parametros que se define." );
+                        }
+                        val = (String) visitListaIdentificadores( lac );
+                        lac = lac.listaIdentificadores( );
+                    }
+                    if( val != null ){
+                        int line = ctx.EXPORTA( ).getSymbol( ).getLine( );
+                        int col = ctx.EXPORTA( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                        error( line, col, " El numero de parametros que exporta el procedimiento \"" + name + "\"" +
+                                          " no coincide con el numero de parametros que se define." );
+                    }
+                }
+                HashMap<String, Object> table3 = table;
+                table = table2;
+                visitInstrucciones( ctxF );
+                map.forEach( (val,var)->{
+                    table3.replace( var, table.get( val ) );
+                });
+                table = table3;
             }
         }
         return null;
     }
 
     @Override
+    public T visitListaIdentificadores( GramaticaParser.ListaIdentificadoresContext ctx ){
+
+        if( ctx.PYC( ) != null){
+            return (T) ctx.IDENTIFICADOR( ).getText( );
+        }
+        return (T) null;
+
+    }
+
+    @Override
     public T visitCondicional( GramaticaParser.CondicionalContext ctx ){
 
         HashMap<String, Object> table2 = table;
-        table = (HashMap) table2.clone( );
+        table = (HashMap) table.clone( );
         Object exp = visitExpresion( ctx.expresion( ) );
         if( exp instanceof Boolean ){
             if( (Boolean) exp ){
@@ -197,8 +353,8 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             int line = ctx.SI( ).getSymbol( ).getLine( );
             int col = ctx.SI( ).getSymbol( ).getCharPositionInLine( ) + 1;
             String type = translateType( exp );
-            error( line, col, " No se puede evaluar la expresión de tipo \"" + type +
-              "\" como una expresión de tipo LOGICO." );
+            error( line, col, " No se puede evaluar la expresion de tipo \"" + type +
+              "\" como una expresion de tipo LOGICO." );
         }
         table = table2;
         return null;
@@ -335,17 +491,16 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
     public T visitEntrada( GramaticaParser.EntradaContext ctx ){
 
         String name = ctx.IDENTIFICADOR( ).getText( );
-        Object data = table.get( name );
+        Object data = table.get( name.toLowerCase( ) );
         if( data == null ){
             int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
             int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
-            error( line, col, " La variable \"" + name + "\" aún no ha sido declarada." );
+            error( line, col, " La variable \"" + name + "\" aun no ha sido declarada." );
         }else{
-            System.out.print( "  " );
             String sc = System.console( ).readLine( );
             if( data instanceof Integer ){
                 try{
-                    table.replace( name, new Integer( sc ) );
+                    table.replace( name.toLowerCase( ), new Integer( sc ) );
                 }catch( Exception e ){
                     int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                     int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
@@ -353,7 +508,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                 }
             }else if( data instanceof Double ){
                 try{
-                    table.replace( name, new Double( sc.replace(",", ".") ) );
+                    table.replace( name.toLowerCase( ), new Double( sc.replace(",", ".") ) );
                 }catch( Exception e ){
                     int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                     int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
@@ -361,7 +516,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                 }
             }else if( data instanceof String ){
                 try{
-                    table.replace( name, sc );
+                    table.replace( name.toLowerCase( ), sc );
                 }catch( Exception e ){
                     int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                     int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
@@ -371,16 +526,16 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                 try{
                     Object value = sc.toUpperCase( );
                     if( value.equals( "VERDADERO" ) ){
-                        table.replace( name, (Boolean) true );
+                        table.replace( name.toLowerCase( ), (Boolean) true );
                     }else if( value.equals( "FALSO" ) ){
-                        table.replace( name, (Boolean) false );
+                        table.replace( name.toLowerCase( ), (Boolean) false );
                     }else{
-                        table.replace( name, (Boolean) value );
+                        table.replace( name.toLowerCase( ), (Boolean) value );
                     }
                 }catch( Exception e ){
                     int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                     int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
-                    error( line, col, " El dato ingresado por consola no es de tipo \"ENTERO\"." );
+                    error( line, col, " El dato ingresado por consola no es de tipo \"LOGICO\"." );
                 }
             }
         }
@@ -447,7 +602,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                         line = ctx.SIGNOO( ).getSymbol( ).getLine( );
                         col = ctx.SIGNOO( ).getSymbol( ).getCharPositionInLine( ) + 1;
                     }
-                    error( line, col, " El operador derecho no es de tipo lógico." );
+                    error( line, col, " El operador derecho no es de tipo logico." );
                 }
             }else{
                 int line = 0;
@@ -465,7 +620,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                     line = ctx.SIGNOO( ).getSymbol( ).getLine( );
                     col = ctx.SIGNOO( ).getSymbol( ).getCharPositionInLine( ) + 1;
                 }
-                error( line, col, " El operador izquierdo no es de tipo lógico." );
+                error( line, col, " El operador izquierdo no es de tipo logico." );
             }
             return null;
         }else{
@@ -758,11 +913,11 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
 
         if( ctx.IDENTIFICADOR( ) != null ){
             String name = ctx.IDENTIFICADOR( ).getText( );
-            Object data = table.get( name );
+            Object data = table.get( name.toLowerCase( ) );
             if( data == null ){
                 int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                 int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
-                error( line, col, " La variable \"" + name + "\" aún no ha sido declarada." );
+                error( line, col, " La variable \"" + name + "\" aun no ha sido declarada." );
             }
             if( ctx.CUADRADOI( ) != null ){
                 ArrayList<T> list = new ArrayList<>( );
@@ -780,13 +935,13 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                             int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                             int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
                             error( line, col, " No se puede acceder a la variable \"" + name + "\".\n"
-                              + "La variable \"" + name + "\" no posee la dimensión especificada." );
+                              + "La variable \"" + name + "\" no posee la dimension especificada." );
                         }
                     }else{
                         int line = ctx.CUADRADOI( ).getSymbol( ).getLine( );
                         int col = ctx.CUADRADOI( ).getSymbol( ).getCharPositionInLine( ) + 1;
                         String type = translateType( item );
-                        error( line, col, " No es posible acceder a una posición de tipo "
+                        error( line, col, " No es posible acceder a una posicion de tipo "
                           + type + "." );
                     }
                 }
@@ -825,7 +980,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
     @Override
     public T visitListaArreglo( GramaticaParser.ListaArregloContext ctx ){
 
-        if( ctx.expresion( ) != null){
+        if( ctx.PYC( ) != null){
             return (T) visitExpresion( ctx.expresion( ) );
         }
         return (T) null;
@@ -847,8 +1002,8 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                 int line = ctx.SINO( ).getSymbol( ).getLine( );
                 int col = ctx.SINO( ).getSymbol( ).getCharPositionInLine( ) + 1;
                 String type = translateType( exp );
-                error( line, col, " No se puede evaluar la expresión de tipo \"" + type +
-                  "\" como una expresión de tipo LOGICO." );
+                error( line, col, " No se puede evaluar la expresion de tipo \"" + type +
+                  "\" como una expresion de tipo LOGICO." );
             }
         }else if( ctx.OTROCASO( ) != null ){
             visitInstrucciones( ctx.instrucciones( ) );
@@ -904,7 +1059,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                         }else{
                             int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                             int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
-                            error( line, col, " No es posible acceder a la dimensión requerida del arreglo \""
+                            error( line, col, " No es posible acceder a la dimension requerida del arreglo \""
                             + ctx.IDENTIFICADOR( 0 ).getText( ) + "\"." );
                         }
                     }else{
@@ -925,8 +1080,8 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             }else{
                 int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                 int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
-                error( line, col, " La posición " + index.toString( ) + " del arreglo "
-                  + ctx.IDENTIFICADOR( 0 ).getText( ) + " está fuera de los límites.\n"
+                error( line, col, " La posicion " + index.toString( ) + " del arreglo "
+                  + ctx.IDENTIFICADOR( 0 ).getText( ) + " esta fuera de los limites.\n"
                   + "Intervalo [ 1, " + ((Integer) (array.size( ) + 1)).toString( ) + " ]" );
             }
 
@@ -934,7 +1089,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
             int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
             String type = translateType( exp );
-            error( line, col, " No es posible acceder a una posición no entera del arreglo \n"
+            error( line, col, " No es posible acceder a una posicion no entera del arreglo \n"
               + error + type + " ]" );
         }
         return null;
