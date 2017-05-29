@@ -1,5 +1,5 @@
 grammar linit.Linit with org.eclipse.xtext.common.Terminals
-
+hidden(WS, LINE_COMMENT)
 generate linit "http://www.Linit.linit"
 
 programa:

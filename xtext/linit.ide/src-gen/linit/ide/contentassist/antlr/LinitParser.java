@@ -170,7 +170,7 @@ public class LinitParser extends AbstractContentAssistParser {
 			
 	@Override
 	protected String[] getInitialHiddenTokens() {
-		return new String[] { "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT" };
+		return new String[] { "RULE_WS", "RULE_LINE_COMMENT" };
 	}
 
 	public LinitGrammarAccess getGrammarAccess() {

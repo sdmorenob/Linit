@@ -11,7 +11,8 @@ public class Interprete
 
     public static void main( String [] args ) throws Exception{
 
-        System.setIn( new FileInputStream( new File( "input.epg" ) ) );
+    	System.out.println( );
+        System.setIn( new FileInputStream( new File( args[0] ) ) );
         ANTLRInputStream input = new ANTLRInputStream( System.in );
         GramaticaLexer lexer = new GramaticaLexer( input );
         CommonTokenStream tokens = new CommonTokenStream( lexer );
@@ -20,6 +21,7 @@ public class Interprete
 
         Visitor<Object> loader = new Visitor<>( );
         loader.visit( tree );
+        System.out.println( );
 
     }
 
