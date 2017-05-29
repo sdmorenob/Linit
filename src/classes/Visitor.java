@@ -1057,6 +1057,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                     }else{
                         Object aux2 = visitExpresion( exp );
                         if( aux1.getClass( ) == aux2.getClass( ) ){
+                            array = new ArrayList<>( array );
                             array.set( index - 1, aux2 );
                             return array;
                         }else{

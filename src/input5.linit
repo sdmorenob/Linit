@@ -1,0 +1,19 @@
+PROCEDIMIENTO fibonacci IMPORTA VARIABLE ENTERA n
+						EXPORTA VARIABLE ENTERA suma:
+	
+	VARIABLE ENTERA contador ES IGUAL A 0.
+	VARIABLE ENTERA fibonacci1 ES IGUAL A 0.
+	VARIABLE ENTERA fibonacci2 ES IGUAL A 1.
+	REPETIR n VECES:
+		suma = fibonacci1 + fibonacci2.
+		fibonacci1 = fibonacci2.
+		fibonacci2 = suma.
+	FIN.
+FIN.
+
+VARIABLE ENTERA n ES IGUAL A 30.
+VARIABLE ENTERA fibonacci.
+
+fibonacci IMPORTA n EXPORTA fibonacci.
+
+IMPRIMIR EN CONSOLA fibonacci.
