@@ -136,6 +136,18 @@ public class GramaticaBaseListener implements GramaticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCiclo(GramaticaParser.CicloContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCiclo(GramaticaParser.CicloContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterImpresion(GramaticaParser.ImpresionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -359,18 +371,6 @@ public class GramaticaBaseListener implements GramaticaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitListaCondicional(GramaticaParser.ListaCondicionalContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCiclo(GramaticaParser.CicloContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCiclo(GramaticaParser.CicloContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

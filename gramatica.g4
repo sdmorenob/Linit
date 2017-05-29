@@ -7,13 +7,13 @@ declaraciones
       : PROCEDIMIENTO IDENTIFICADOR parametros DP instrucciones FIN PUNTO declaraciones
       | ;
 parametros
-      : IMPORTA VARIABLE tipoVariable IDENTIFICADOR listaParametros exporta
+      : IMPORTA (VARIABLE tipoVariable IDENTIFICADOR| arreglo) listaParametros exporta
       | exporta;
 exporta
-      : EXPORTA VARIABLE tipoVariable IDENTIFICADOR listaParametros
+      : EXPORTA (VARIABLE tipoVariable IDENTIFICADOR| arreglo) listaParametros
       | ;
 listaParametros
-      : PYC tipoVariable IDENTIFICADOR listaParametros
+      : PYC (tipoVariable IDENTIFICADOR | arreglo) listaParametros
       | ;
 instrucciones
       : nominacion PUNTO instrucciones
@@ -34,6 +34,9 @@ llamadaIdentificador
       | IDENTIFICADOR (IMPORTA expresion listaArreglo)? (EXPORTA IDENTIFICADOR listaIdentificadores)?;
 condicional
       : SI expresion DP instrucciones listaCondicional FIN;
+ciclo
+      : REPETIR expresion VECES DP instrucciones FIN
+      | REPETIR MIENTRAS expresion SEA logico DP instrucciones FIN;
 impresion
       : IMPRIMIR expresion listaImpresion;
 entrada
@@ -87,9 +90,6 @@ listaCondicional
       : SINO expresion DP instrucciones listaCondicional
       | OTROCASO DP instrucciones
       | ;
-ciclo
-      : REPETIR expresion VECES DP instrucciones FIN
-      | REPETIR MIENTRAS expresion SEA logico DP instrucciones FIN;
 listaImpresion
       : PYC expresion listaImpresion
       | ;
@@ -125,11 +125,11 @@ O
 SIGNOO
       : '\\/';
 MENOR
-      : [E][Ss][ ][M][Ee][Nn][Oo][Rr];
+      : [E][Ss][ ][M][Ee][Nn][Oo][Rr][ ][A];
 SIGNOMENOR
       : '<';
 MENORIGUAL
-      : [E][Ss][ ][M][Ee][Nn][Oo][Rr][ ][O][ ][I][Gg][Uu][Aa][Ll];
+      : [E][Ss][ ][M][Ee][Nn][Oo][Rr][ ][O][ ][I][Gg][Uu][Aa][Ll][ ][A];
 SIGNOMENORIGUAL
       : '<=';
 MAYOR
@@ -137,7 +137,7 @@ MAYOR
 SIGNOMAYOR
       : '>';
 MAYORIGUAL
-      : [E][Ss][ ][M][Aa][Yy][Oo][Rr][ ][O][ ][I][Gg][Uu][Aa][Ll];
+      : [E][Ss][ ][M][Aa][Yy][Oo][Rr][ ][O][ ][I][Gg][Uu][Aa][Ll][ ][A];
 SIGNOMAYORIGUAL
       : '>=';
 IGUAL
@@ -211,4 +211,4 @@ IMPRIMIR
 CAPTURAR
       : [C][Aa][Pp][Tt][Uu][Rr][Aa][Rr][ ][D][Ee][ ][C][Oo][Nn][Ss][Oo][Ll][Aa];
 IDENTIFICADOR
-      : [a-z][a-zA-Z0-9]*;
+      : [a-z][a-zA-Z0-9_]*;

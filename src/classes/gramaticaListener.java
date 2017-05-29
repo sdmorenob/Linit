@@ -108,6 +108,16 @@ public interface GramaticaListener extends ParseTreeListener {
 	 */
 	void exitCondicional(GramaticaParser.CondicionalContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GramaticaParser#ciclo}.
+	 * @param ctx the parse tree
+	 */
+	void enterCiclo(GramaticaParser.CicloContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GramaticaParser#ciclo}.
+	 * @param ctx the parse tree
+	 */
+	void exitCiclo(GramaticaParser.CicloContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GramaticaParser#impresion}.
 	 * @param ctx the parse tree
 	 */
@@ -297,16 +307,6 @@ public interface GramaticaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitListaCondicional(GramaticaParser.ListaCondicionalContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GramaticaParser#ciclo}.
-	 * @param ctx the parse tree
-	 */
-	void enterCiclo(GramaticaParser.CicloContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GramaticaParser#ciclo}.
-	 * @param ctx the parse tree
-	 */
-	void exitCiclo(GramaticaParser.CicloContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GramaticaParser#listaImpresion}.
 	 * @param ctx the parse tree

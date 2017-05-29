@@ -11,7 +11,7 @@ public class Interprete
 
     public static void main( String [] args ) throws Exception{
 
-        System.setIn( new FileInputStream( new File("input.txt") ) );
+        System.setIn( new FileInputStream( new File( "input.epg" ) ) );
         ANTLRInputStream input = new ANTLRInputStream( System.in );
         GramaticaLexer lexer = new GramaticaLexer( input );
         CommonTokenStream tokens = new CommonTokenStream( lexer );

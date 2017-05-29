@@ -1,0 +1,6 @@
+PROCEDIMIENTO ordenar_por_nota IMPORTA ARREGLO VARIABLE lista_estudiantes
+                                       ENTERA numero_estudiantes
+                               EXPORTA ARREGLO VARIABLE lista_estudiantes:
+    >> Quick Sort
+
+FIN.

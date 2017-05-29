@@ -55,12 +55,21 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
         ArrayList<Object> import_ = new ArrayList( );
         parametros.add( import_ );
         if( ctx.IMPORTA( ) != null ){
-            String name = ctx.IDENTIFICADOR( ).getText( );
-            Object aux = visitTipoVariable( ctx.tipoVariable( ) );
-            import_ = (ArrayList) parametros.remove( parametros.size( ) - 1 );
-            import_.add( name.toLowerCase( ) );
-            parametros.add( import_ );
-            table.put( name.toLowerCase( ), aux );
+            if( ctx.arreglo( ) != null ){
+                String name = ctx.arreglo( ).IDENTIFICADOR( ).getText( );
+                ArrayList<T> aux = new ArrayList<>( );
+                import_ = (ArrayList) parametros.remove( parametros.size( ) - 1 );
+                import_.add( name.toLowerCase( ) );
+                parametros.add( import_ );
+                table.put( name.toLowerCase( ), aux );
+            }else{
+                String name = ctx.IDENTIFICADOR( ).getText( );
+                Object aux = visitTipoVariable( ctx.tipoVariable( ) );
+                import_ = (ArrayList) parametros.remove( parametros.size( ) - 1 );
+                import_.add( name.toLowerCase( ) );
+                parametros.add( import_ );
+                table.put( name.toLowerCase( ), aux );
+            }
             visitListaParametros( ctx.listaParametros( ) );
         }
         visitExporta( ctx.exporta( ) );
@@ -75,16 +84,27 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
 
         if( ctx.PYC( ) != null ){
             ArrayList<Object> param = (ArrayList) parametros.remove( parametros.size( ) - 1 );
-            String name = ctx.IDENTIFICADOR( ).getText( );
+            String name;
+            if( ctx.arreglo( ) == null )
+                name = ctx.IDENTIFICADOR( ).getText( );
+            else
+                name = ctx.arreglo( ).IDENTIFICADOR( ).getText( );
             if( table.get( name.toLowerCase( ) ) != null ){
                 int line = ctx.PYC( ).getSymbol( ).getLine( );
                 int col = ctx.PYC( ).getSymbol( ).getCharPositionInLine( ) + 2;
                 error( line, col, " El parametro \"" + name + "\" ya ha sido declarado." );
             }else{
-                Object aux = visitTipoVariable( ctx.tipoVariable( ) );
-                param.add( name.toLowerCase( ) );
-                table.put( name.toLowerCase( ), aux );
-                parametros.add( param );
+                if( ctx.tipoVariable( ) != null ){
+                    Object aux = visitTipoVariable( ctx.tipoVariable( ) );
+                    param.add( name.toLowerCase( ) );
+                    table.put( name.toLowerCase( ), aux );
+                    parametros.add( param );
+                }else{
+                    ArrayList<T> aux = new ArrayList<>( );
+                    param.add( name.toLowerCase( ) );
+                    table.put( name.toLowerCase( ), aux );
+                    parametros.add( param );
+                }
                 visitListaParametros( ctx.listaParametros( ) );
             }
         }
@@ -97,17 +117,32 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
 
         if( ctx.EXPORTA( ) != null ){
             ArrayList<Object> export = new ArrayList<>( );
-            String name = ctx.IDENTIFICADOR( ).getText( );
-            if( table.get( name.toLowerCase( ) ) != null ){
-                int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
-                int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
-                error( line, col, " El parametro \"" + name + "\" ya ha sido declarado." );
+            if( ctx.VARIABLE( ) != null ){
+                String name = ctx.IDENTIFICADOR( ).getText( );
+                if( table.get( name.toLowerCase( ) ) != null ){
+                    int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
+                    int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                    error( line, col, " El parametro \"" + name + "\" ya ha sido declarado." );
+                }else{
+                    Object aux = visitTipoVariable( ctx.tipoVariable( ) );
+                    export.add( name.toLowerCase( ) );
+                    table.put( name.toLowerCase( ), aux );
+                    parametros.add( export );
+                    visitListaParametros( ctx.listaParametros( ) );
+                }
             }else{
-                Object aux = visitTipoVariable( ctx.tipoVariable( ) );
-                export.add( name.toLowerCase( ) );
-                table.put( name.toLowerCase( ), aux );
-                parametros.add( export );
-                visitListaParametros( ctx.listaParametros( ) );
+                String name = ctx.arreglo( ).IDENTIFICADOR( ).getText( );
+                if( table.get( name.toLowerCase( ) ) != null ){
+                    int line = ctx.arreglo( ).IDENTIFICADOR( ).getSymbol( ).getLine( );
+                    int col = ctx.arreglo( ).IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                    error( line, col, " El parametro \"" + name + "\" ya ha sido declarado." );
+                }else{
+                    ArrayList<T> aux = new ArrayList<>( );
+                    export.add( name.toLowerCase( ) );
+                    table.put( name.toLowerCase( ), aux );
+                    parametros.add( export );
+                    visitListaParametros( ctx.listaParametros( ) );
+                }
             }
             return null;
         }
@@ -250,10 +285,10 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                 int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
                 error( line, col, " El procedimiento \"" + name + "\" no ha sido declarado." );
             }else{
-                ArrayList<Object> function = (ArrayList) tableF.get( name.toLowerCase( ) );
-                GramaticaParser.InstruccionesContext ctxF = (GramaticaParser.InstruccionesContext) function.remove( 0 );
-                HashMap<String, Object> table2 = (HashMap) function.remove( 0 );
-                ArrayList<Object> parameter = (ArrayList) function.remove( 0 );
+                ArrayList<Object> function = new ArrayList<>( (ArrayList) tableF.get( name.toLowerCase( ) ) );
+                GramaticaParser.InstruccionesContext ctxF = (GramaticaParser.InstruccionesContext) function.get( 0 );
+                HashMap<String, Object> table2 = new HashMap<>( (HashMap) function.get( 1 ) );
+                ArrayList<Object> parameter = new ArrayList<>( (ArrayList) function.get( 2 ) );
                 if( ctx.IMPORTA( ) != null && parameter.size( ) < 1 ){
                     int line = ctx.IMPORTA( ).getSymbol( ).getLine( );
                     int col = ctx.IMPORTA( ).getSymbol( ).getCharPositionInLine( ) + 1;
@@ -292,7 +327,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                     }
                 }
                 HashMap<String, String> map = new HashMap<>( );
-                parameter = (ArrayList) function.remove( 0 );
+                parameter = new ArrayList<>( (ArrayList) function.get( 3 ) );
                 if( ctx.EXPORTA( ) != null ){
                     GramaticaParser.ListaIdentificadoresContext lac = ctx.listaIdentificadores( );
                     String val = ctx.IDENTIFICADOR( 1 ).getText( );
@@ -400,6 +435,9 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                     table = (HashMap) table2.clone( );
                     visitInstrucciones( ctx.instrucciones( ) );
                     times--;
+                    for( String g : table2.keySet( ) ){
+                        table2.replace( g, table.get( g ) );
+                    }
                 }
                 table = table2;
             }else{
@@ -418,32 +456,8 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
     public T visitImpresion( GramaticaParser.ImpresionContext ctx ){
 
         Object exp = visitExpresion( ctx.expresion( ) );
-        if( exp instanceof Integer ){
-            System.out.print( exp );
-            System.out.print( " " );
-        }else if( exp instanceof String ){
-            System.out.print( ((String) exp).replace( "\"", "" ) );
-            System.out.print( " " );
-        }else if( exp instanceof Double ){
-            System.out.print( exp.toString( ).replace( ".", "," ) );
-            System.out.print( " " );
-        }else if( exp instanceof Boolean ){
-            if( (Boolean) exp )
-                System.out.print( "VERDADERO" );
-            else
-                System.out.print( "FALSO" );
-            System.out.print( " " );
-        }else if( exp instanceof ArrayList ){
-            System.out.print( "[ " );
-            for( Object item : (ArrayList) exp ){
-                System.out.print( item.toString( ) + " | " );
-            }
-            System.out.print( " ]" );
-        }else{
-            int line = ctx.IMPRIMIR( ).getSymbol( ).getLine( );
-            int col = ctx.IMPRIMIR( ).getSymbol( ).getCharPositionInLine( ) + 1;
-            error( line, col, " No es posible imprimir el tipo de dato referido." );
-        }
+        imprimir( exp, ctx.IMPRIMIR( ).getSymbol( ).getLine( ),
+          ctx.IMPRIMIR( ).getSymbol( ).getCharPositionInLine( ) + 1 );
         visitListaImpresion( ctx.listaImpresion( ) );
         System.out.println( );
         return null;
@@ -455,32 +469,8 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
 
         if( ctx.expresion( ) != null ){
             Object exp = visitExpresion( ctx.expresion( ) );
-            if( exp instanceof Integer ){
-                System.out.print( exp );
-                System.out.print( " " );
-            }else if( exp instanceof String ){
-                System.out.print( ((String) exp).replace( "\"", "" ) );
-                System.out.print( " " );
-            }else if( exp instanceof Double ){
-                System.out.print( exp.toString( ).replace( ".", "," ) );
-                System.out.print( " " );
-              }else if( exp instanceof Boolean ){
-                  if( (Boolean) exp )
-                      System.out.print( "VERDADERO" );
-                  else
-                      System.out.print( "FALSO" );
-                  System.out.print( " " );
-              }else if( exp instanceof ArrayList ){
-                  System.out.print( "[ " );
-                  for( Object item : (ArrayList) exp ){
-                      System.out.print( item.toString( ) + " | " );
-                  }
-                  System.out.print( " ]" );
-              }else{
-                  int line = ctx.PYC( ).getSymbol( ).getLine( );
-                  int col = ctx.PYC( ).getSymbol( ).getCharPositionInLine( ) + 1;
-                  error( line, col, " No es posible imprimir el tipo de dato referido." );
-              }
+            imprimir( exp, ctx.PYC( ).getSymbol( ).getLine( ),
+              ctx.PYC( ).getSymbol( ).getCharPositionInLine( ) + 1 );
             visitListaImpresion( ctx.listaImpresion( ) );
         }
         return null;
@@ -931,6 +921,8 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                     if( item instanceof Integer ){
                         if( data instanceof ArrayList ){
                             data = ((ArrayList) data).get( (Integer) item - 1 );
+                            if( data instanceof ArrayList )
+                                data = new ArrayList( (ArrayList)data );
                         }else{
                             int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                             int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
@@ -1094,4 +1086,38 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
         }
         return null;
     }
+
+    private void imprimir( Object exp, int line, int col ){
+
+        if( exp instanceof Integer ){
+            System.out.print( exp );
+            System.out.print( " " );
+        }else if( exp instanceof String ){
+            System.out.print( ((String) exp).replace( "\"", "" ) );
+            System.out.print( " " );
+        }else if( exp instanceof Double ){
+            System.out.print( exp.toString( ).replace( ".", "," ) );
+            System.out.print( " " );
+        }else if( exp instanceof Boolean ){
+            if( (Boolean) exp )
+                System.out.print( "VERDADERO" );
+            else
+                System.out.print( "FALSO" );
+            System.out.print( " " );
+        }else if( exp instanceof ArrayList ){
+            System.out.print( "[ " );
+            for( Object item : (ArrayList) exp ){
+                if( item instanceof ArrayList ){
+                    imprimir( item, line, col );
+                    System.out.print( " , " );
+                }else
+                    System.out.print( item.toString( ) + " , " );
+            }
+            System.out.print( " ]" );
+        }else
+            error( line, col, " No es posible imprimir el tipo de dato referido." );
+
+        return;
+    }
+
 }

@@ -71,6 +71,12 @@ public interface GramaticaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCondicional(GramaticaParser.CondicionalContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GramaticaParser#ciclo}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCiclo(GramaticaParser.CicloContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GramaticaParser#impresion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -184,12 +190,6 @@ public interface GramaticaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitListaCondicional(GramaticaParser.ListaCondicionalContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link GramaticaParser#ciclo}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCiclo(GramaticaParser.CicloContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GramaticaParser#listaImpresion}.
 	 * @param ctx the parse tree
