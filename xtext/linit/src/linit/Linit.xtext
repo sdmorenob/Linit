@@ -1,0 +1,389 @@
+grammar linit.Linit with org.eclipse.xtext.common.Terminals
+
+generate linit "http://www.Linit.linit"
+
+programa:
+	d=declaraciones i=instrucciones
+;
+
+declaraciones:
+	(( 'PROCEDIMIENTO' | PROCEDIMIENTO )
+	IDENTIFICADOR
+	parametros
+	':'
+	i=instrucciones
+	( 'FIN' | FIN )
+	'.'
+	d=declaraciones)?
+;
+parametros:
+	( 'IMPORTA' | IMPORTA )
+	( ( 'VARIABLE' | VARIABLE)
+	tipoVariable
+	IDENTIFICADOR | arreglo )
+	listaParametros
+	exporta2
+	|
+	exporta2
+;
+exporta2:
+	( ( 'EXPORTA' | EXPORTA )
+	( ( 'VARIABLE' | VARIABLE)
+	tipoVariable
+	IDENTIFICADOR  | arreglo )
+	listaParametros)?
+;
+listaParametros:
+	(';'
+	( tipoVariable
+	IDENTIFICADOR | arreglo)
+	listaParametros)?
+;
+instrucciones:
+	{instrucciones}(
+		nominacion '.' i=instrucciones
+	  	|
+	  	arreglo '.' i=instrucciones
+    	|
+    	llamadaIdentificador '.' i=instrucciones
+	  	|
+	  	c=condicional '.' i=instrucciones
+		|
+		f+=ciclo '.' i=instrucciones
+	  	|
+	  	impresion '.' i=instrucciones
+	  	|
+	  	entrada '.' i=instrucciones
+	)?
+;
+nominacion:
+	( 'VARIABLE' | VARIABLE )
+	tipoVariable
+	IDENTIFICADOR
+	igualdad?
+	|
+	( 'CONSTANTE' | CONSTANTE )
+	tipoVariable
+	IDENTIFICADOR
+	igualdad
+;
+arreglo:
+	( 'ARREGLO' | AREGLO )
+	( 'VARIABLE' | VARIABLE)
+	IDENTIFICADOR
+;
+llamadaIdentificador:
+	IDENTIFICADOR
+	(
+		CUADRADOI
+		expresion listaArreglo
+		CUADRADOD
+	)?
+	igualdad
+    |
+    IDENTIFICADOR
+	(
+		( 'IMPORTA' | IMPORTA )
+		expresion
+		listaArreglo
+	)?
+	(
+		( 'EXPORTA' | EXPORTA )
+		IDENTIFICADOR
+		listaIdentificadores
+	)?
+;
+condicional:
+	( 'SI' | SI )
+	expresion ':'
+	i=instrucciones
+	l=listaCondicional
+	( 'FIN' | FIN )
+;
+ciclo:
+	( 'REPETIR' | REPETIR )
+	expresion
+	( 'VECES' | VECES )
+	':'
+	instrucciones
+	( 'FIN' | FIN )
+	|
+	( 'REPETIR' | REPETIR )
+	( 'MIENTRAS' | MIENTRAS )
+	expresion
+	( 'SEA' | SEA )
+	logico
+	':'
+	instrucciones
+	( 'FIN' | FIN )
+;
+impresion:
+	( 'IMPRIMIR EN CONSOLA' | IMPRIMIR )
+	expresion
+	listaImpresion
+;
+entrada:
+	( 'CAPTURAR DE CONSOLA' | CAPTURAR )
+	IDENTIFICADOR
+;
+tipoVariable:
+	( 'ENTERA' | ENTERA )
+	| ( 'REAL' | REAL )
+	| ( 'LOGICA' | LOGICA )
+	| ( 'DE CARACTERES' | CARACTERES )
+;
+igualdad:
+	( 'ES IGUAL A' | IGUAL )
+	expresion
+	|
+	SIGNOIGUAL
+	expresion
+;
+listaIdentificadores:
+      (';' IDENTIFICADOR listaIdentificadores)?
+;
+expresion:
+	operacionOY
+;
+operacionOY:
+	comparacion (( 'Y' | SIGNOY | 'O' | SIGNOO ) operacionOY)?
+;
+comparacion:
+	aritmetica (opcomparacion comparacion)?
+;
+opcomparacion:
+	( ( 'ES MENOR A' | MENOR) | SIGNOMENOR )
+    |
+    ( ( 'ES MENOR O IGUAL A' | MENORIGUAL ) | SIGNOMENORIGUAL )
+	|
+	( ( 'ES MAYOR A' | MAYOR ) | SIGNOMAYOR )
+	|
+	( ( 'ES MAYOR O IGUAL A' | MAYORIGUAL ) | SIGNOMAYORIGUAL)
+	|
+	( ( 'ES DIFERENTE DE A' | DIFERENTE ) | SIGNODIFERENTE)
+    |
+    ( ( 'ES IGUAL A' | IGUAL ) | SIGNOIGUAL)
+;
+aritmetica:
+	multiplicacion_ (( SUMA | RESTA ) aritmetica)?
+;
+multiplicacion_:
+	potenciacion (( MULTIPLICACION | DIVISION | MODULO ) multiplicacion_)?
+;
+potenciacion:
+	negacion (POTENCIA potenciacion)?
+;
+negacion:
+	( 'NO' | NO )* parentesis
+;
+parentesis:
+	IZQUIERDO expresion DERECHO
+	|
+	dato
+;
+dato:
+	IDENTIFICADOR (CUADRADOI expresion listaArreglo CUADRADOD)?
+	|
+	numero
+	|
+	logico
+	|
+	FRASE
+;
+logico:
+	VERDADERO
+	|
+	FALSO
+;
+numero:
+	ENTERO
+	|
+	NREAL
+;
+listaArreglo:
+	(
+		';' expresion listaArreglo
+	)?
+;
+listaCondicional:
+	{listaCondicional}(
+		( 'O SI' | SINO )
+		expresion ':'
+		i=instrucciones l=listaCondicional
+		|
+		( 'EN OTRO CASO' | OTROCASO)
+		':' i=instrucciones
+	)?
+;
+listaImpresion:
+	(
+	 	 ';'
+		expresion
+		listaImpresion
+	)?
+;
+terminal LINE_COMMENT:
+	'>>' !('\n'|'\r')* ('\r'? '\n')?
+;
+@Override
+terminal WS:
+	(' '|'\t'|'\r'|'\n')+
+;
+terminal PROCEDIMIENTO:
+	('P')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('D'|'d')('I'|'i')('M'|'m')('I'|'i')('E'|'e')('N'|'n')('T'|'t')('O'|'o')
+;
+terminal IMPORTA:
+	('I')('M'|'m')('P'|'p')('O'|'o')('R'|'r')('T'|'t')('A'|'a')
+;
+terminal EXPORTA:
+	('E')('X'|'x')('P'|'p')('O'|'o')('R'|'r')('T'|'t')('A'|'a')
+;
+terminal VARIABLE:
+	('V')('A'|'a')('R'|'r')('I'|'i')('A'|'a')('B'|'b')('L'|'l')('E'|'e')
+;
+terminal CONSTANTE:
+	('C')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t')('E'|'e')
+;
+terminal ENTERA:
+	('E')('N'|'n')('T'|'t')('E'|'e')('R'|'r')('A'|'a')
+;
+terminal REAL:
+	('R')('E'|'e')('A'|'a')('L'|'l')
+;
+terminal LOGICA:
+	('L')('O'|'o')('G'|'g')('I'|'i')('C'|'c')('A'|'a')
+;
+terminal CARACTERES:
+    ('D')('E'|'e')(' ')('C')('A'|'a')('R'|'r')('A'|'a')('C'|'c')('T'|'t')('E'|'e')('R'|'r')('E'|'e')('S'|'s')
+;
+terminal SIGNOY:
+	('/\\')
+;
+terminal SIGNOO:
+	('\\/')
+;
+terminal MENOR:
+	('E')('S'|'s')(' ')('M')('E'|'e')('N'|'n')('O'|'o')('R'|'r')
+;
+terminal SIGNOMENOR:
+	'<'
+;
+terminal MENORIGUAL:
+	('E')('S'|'s')(' ')('M')('E'|'e')('N'|'n')('O'|'o')('R'|'r')(' ')('O')(' ')('I')('G'|'g')('U'|'u')('A'|'a')('L'|'l')
+;
+terminal SIGNOMENORIGUAL:
+	'<='
+;
+terminal MAYOR:
+	('E')('S'|'s')(' ')('M')('A'|'a')('Y'|'y')('O'|'o')('R'|'r')
+;
+terminal SIGNOMAYOR:
+	'>'
+;
+terminal MAYORIGUAL:
+	('E')('S'|'s')(' ')('M')('A'|'a')('Y'|'y')('O'|'o')('R'|'r')(' ')('O')(' ')('I')('G'|'g')('U'|'u')('A'|'a')('L'|'l')
+;
+terminal SIGNOMAYORIGUAL:
+	'>='
+;
+terminal IGUAL:
+	('E')('S'|'s')(' ')('I')('G'|'g')('U'|'u')('A'|'a')('L'|'l')(' ')('A')
+;
+terminal SIGNOIGUAL:
+	'='
+;
+terminal DIFERENTE:
+	('E')('S'|'s')(' ')('D')('I'|'i')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('T'|'t')('E'|'e')(' ')('D')('E'|'e')
+;
+terminal SIGNODIFERENTE:
+	'/='
+;
+terminal SUMA:
+	'+'
+;
+terminal RESTA:
+	'-'
+;
+terminal MULTIPLICACION:
+	'*'
+;
+terminal DIVISION:
+	'/'
+;
+terminal MODULO:
+	('M')('O'|'o')('D'|'d')('U'|'u')('L'|'l')('O'|'o')
+;
+terminal POTENCIA:
+	'**'
+;
+terminal NO:
+	('N')('O'|'o')(' ')('S')('U'|'u')('C'|'c')('E'|'e')('D'|'d')('E'|'e')
+;
+terminal IZQUIERDO:
+	'('
+;
+terminal DERECHO:
+	')'
+;
+terminal ENTERO:
+	INT
+;
+terminal NREAL:
+  '-'? ('0'..'9')+ ',' ('0'..'9')+
+;
+terminal VERDADERO:
+	('V')('E'|'e')('R'|'r')('D'|'d')('A'|'a')('D'|'d')('E'|'e')('R'|'r')('O'|'o')
+;
+terminal FALSO:
+	('F')('A'|'a')('L'|'l')('S'|'s')('O'|'o')
+;
+terminal FRASE:
+	'"'(.?)*'"'
+;
+terminal AREGLO:
+	('A')('R'|'r')('R'|'r')('E'|'e')('G'|'g')('L'|'l')('O'|'o')
+;
+terminal CUADRADOI:
+	'['
+;
+terminal CUADRADOD:
+	']'
+;
+terminal SI:
+	('S')('I'|'i')
+;
+terminal ES:
+	('E')('S'|'s')
+;
+terminal SINO:
+	('O')(' ')('S')('I'|'i')
+;
+terminal OTROCASO:
+	('E')('N'|'n')(' ')('O')('T'|'t')('R'|'r')('O'|'o')(' ')('C')('A'|'a')('S'|'s')('O'|'o')
+;
+terminal REPETIR:
+	('R')('E'|'e')('P'|'p')('E'|'e')('T'|'t')('I'|'i')('R'|'r')
+;
+terminal MIENTRAS:
+	('M')('I'|'i')('E'|'e')('N'|'n')('T'|'t')('R'|'r')('A'|'a')('S'|'s')
+;
+terminal SEA:
+	('S')('E'|'e')('A'|'a')
+;
+terminal VECES:
+	('V')('E'|'e')('C'|'c')('E'|'e')('S'|'s')
+;
+terminal FIN:
+	('F')('I'|'i')('N'|'n')
+;
+terminal IMPRIMIR:
+	('I')('M'|'m')('P'|'p')('R'|'r')('I'|'i')('M'|'m')('I'|'i')('R'|'r')(' ')
+    +('E')('N'|'n')(' ')('C')('O'|'o')('N'|'n')('S'|'s')('O'|'o')('L'|'l')('A'|'a')
+;
+terminal CAPTURAR:
+	('C')('A'|'a')('P'|'p')('T'|'t')('U'|'u')('R'|'r')('A'|'a')('R'|'r')(' ')('D')('E'|'e')
+	+(' ')('C')('O'|'o')('N'|'n')('S'|'s')('O'|'o')('L'|'l')('A'|'a')
+;
+terminal IDENTIFICADOR:
+	('a'..'z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
+;
