@@ -174,7 +174,7 @@ potenciacion:
 	negacion (POTENCIA potenciacion)?
 ;
 negacion:
-	( 'NO' | NO )* parentesis
+	( 'NO SUCEDE' | NO )* parentesis
 ;
 parentesis:
 	IZQUIERDO expresion DERECHO
@@ -191,9 +191,9 @@ dato:
 	FRASE
 ;
 logico:
-	VERDADERO
+	( 'VERDADERO' | VERDADERO )
 	|
-	FALSO
+	( 'FALSO' | FALSO )
 ;
 numero:
 	ENTERO

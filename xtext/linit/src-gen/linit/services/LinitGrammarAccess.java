@@ -1395,22 +1395,22 @@ public class LinitGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "linit.Linit.negacion");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
-		private final Keyword cNOKeyword_0_0 = (Keyword)cAlternatives_0.eContents().get(0);
+		private final Keyword cNOSUCEDEKeyword_0_0 = (Keyword)cAlternatives_0.eContents().get(0);
 		private final RuleCall cNOTerminalRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
 		private final RuleCall cParentesisParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//negacion:
-		//	('NO' | NO)* parentesis;
+		//	('NO SUCEDE' | NO)* parentesis;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//('NO' | NO)* parentesis
+		//('NO SUCEDE' | NO)* parentesis
 		public Group getGroup() { return cGroup; }
 		
-		//('NO' | NO)*
+		//('NO SUCEDE' | NO)*
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 		
-		//'NO'
-		public Keyword getNOKeyword_0_0() { return cNOKeyword_0_0; }
+		//'NO SUCEDE'
+		public Keyword getNOSUCEDEKeyword_0_0() { return cNOSUCEDEKeyword_0_0; }
 		
 		//NO
 		public RuleCall getNOTerminalRuleCall_0_1() { return cNOTerminalRuleCall_0_1; }
@@ -1507,22 +1507,37 @@ public class LinitGrammarAccess extends AbstractGrammarElementFinder {
 	public class LogicoElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "linit.Linit.logico");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cVERDADEROTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cFALSOTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cAlternatives.eContents().get(0);
+		private final Keyword cVERDADEROKeyword_0_0 = (Keyword)cAlternatives_0.eContents().get(0);
+		private final RuleCall cVERDADEROTerminalRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
+		private final Alternatives cAlternatives_1 = (Alternatives)cAlternatives.eContents().get(1);
+		private final Keyword cFALSOKeyword_1_0 = (Keyword)cAlternatives_1.eContents().get(0);
+		private final RuleCall cFALSOTerminalRuleCall_1_1 = (RuleCall)cAlternatives_1.eContents().get(1);
 		
 		//logico:
-		//	VERDADERO
-		//	| FALSO;
+		//	('VERDADERO' | VERDADERO) | ('FALSO' | FALSO);
 		@Override public ParserRule getRule() { return rule; }
 		
-		//VERDADERO | FALSO
+		//('VERDADERO' | VERDADERO) | ('FALSO' | FALSO)
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
+		//('VERDADERO' | VERDADERO)
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+		
+		//'VERDADERO'
+		public Keyword getVERDADEROKeyword_0_0() { return cVERDADEROKeyword_0_0; }
+		
 		//VERDADERO
-		public RuleCall getVERDADEROTerminalRuleCall_0() { return cVERDADEROTerminalRuleCall_0; }
+		public RuleCall getVERDADEROTerminalRuleCall_0_1() { return cVERDADEROTerminalRuleCall_0_1; }
+		
+		//('FALSO' | FALSO)
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+		
+		//'FALSO'
+		public Keyword getFALSOKeyword_1_0() { return cFALSOKeyword_1_0; }
 		
 		//FALSO
-		public RuleCall getFALSOTerminalRuleCall_1() { return cFALSOTerminalRuleCall_1; }
+		public RuleCall getFALSOTerminalRuleCall_1_1() { return cFALSOTerminalRuleCall_1_1; }
 	}
 	public class NumeroElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "linit.Linit.numero");
@@ -2163,7 +2178,7 @@ public class LinitGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//negacion:
-	//	('NO' | NO)* parentesis;
+	//	('NO SUCEDE' | NO)* parentesis;
 	public NegacionElements getNegacionAccess() {
 		return pNegacion;
 	}
@@ -2197,8 +2212,7 @@ public class LinitGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//logico:
-	//	VERDADERO
-	//	| FALSO;
+	//	('VERDADERO' | VERDADERO) | ('FALSO' | FALSO);
 	public LogicoElements getLogicoAccess() {
 		return pLogico;
 	}

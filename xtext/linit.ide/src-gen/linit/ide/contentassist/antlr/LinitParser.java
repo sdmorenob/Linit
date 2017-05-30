@@ -89,6 +89,8 @@ public class LinitParser extends AbstractContentAssistParser {
 					put(grammarAccess.getParentesisAccess().getAlternatives(), "rule__Parentesis__Alternatives");
 					put(grammarAccess.getDatoAccess().getAlternatives(), "rule__Dato__Alternatives");
 					put(grammarAccess.getLogicoAccess().getAlternatives(), "rule__Logico__Alternatives");
+					put(grammarAccess.getLogicoAccess().getAlternatives_0(), "rule__Logico__Alternatives_0");
+					put(grammarAccess.getLogicoAccess().getAlternatives_1(), "rule__Logico__Alternatives_1");
 					put(grammarAccess.getNumeroAccess().getAlternatives(), "rule__Numero__Alternatives");
 					put(grammarAccess.getListaCondicionalAccess().getAlternatives_1(), "rule__ListaCondicional__Alternatives_1");
 					put(grammarAccess.getListaCondicionalAccess().getAlternatives_1_0_0(), "rule__ListaCondicional__Alternatives_1_0_0");

@@ -1,19 +1,81 @@
-PROCEDIMIENTO fibonacci IMPORTA VARIABLE ENTERA n
-						EXPORTA VARIABLE ENTERA suma:
+PROCEDIMIENTO areaTriangulo IMPORTA ARREGLO VARIABLE coordenadas
+							EXPORTA VARIABLE REAL area:
+	>> [ [x1,y1] , [x2,y2], [x3,y3] ]
 	
-	VARIABLE ENTERA contador ES IGUAL A 0.
-	VARIABLE ENTERA fibonacci1 ES IGUAL A 0.
-	VARIABLE ENTERA fibonacci2 ES IGUAL A 1.
-	REPETIR n VECES:
-		suma = fibonacci1 + fibonacci2.
-		fibonacci1 = fibonacci2.
-		fibonacci2 = suma.
+	ARREGLO VARIABLE punto1.
+	ARREGLO VARIABLE punto2.
+	ARREGLO VARIABLE punto3.
+
+	punto1 = coordenadas[1].
+	punto2 = coordenadas[2].
+	punto3 = coordenadas[3].
+
+	VARIABLE REAL lado1.
+	VARIABLE REAL lado2.
+	VARIABLE REAL lado3.
+
+	lado1 = ( ((punto1[1] - punto2[1]) ** 2) + ( (punto1[2] - punto2[2]) ** 2 ) )**( 1/2 ).
+	lado2 = ( ((punto2[1] - punto3[1]) ** 2) + ( (punto2[2] - punto3[2]) ** 2 ) )**( 1/2 ).
+	lado3 = ( ((punto3[1] - punto1[1]) ** 2) + ( (punto3[2] - punto1[2]) ** 2 ) )**( 1/2 ).
+	
+	SI lado1 ES MENOR A 0,0:
+		lado1 = lado1 + 2*lado1.
 	FIN.
+	SI lado2 ES MENOR A 0,0:
+		lado2 = lado2 + 2*lado2.
+	FIN.
+	SI lado3 ES MENOR A 0,0:
+		lado3 = lado3 + 2*lado3.
+	FIN.
+	
+	>> Formula de Herón
+	>> s = (a + b + c) / 2
+	>> ha = 2/a * ( s * (s - a) * (s - b) * (s - c) )**(1/2)
+	VARIABLE REAL s = (lado1 + lado2 + lado3) / 2.
+	VARIABLE REAL altura1 =  2/lado1 * ( s * (s - lado1) * (s - lado2) * (s - lado3) )**(1/2).
+	
+	area = altura1 * lado1 / 2.
+
 FIN.
 
-VARIABLE ENTERA n ES IGUAL A 30.
-VARIABLE ENTERA fibonacci.
+ARREGLO VARIABLE coordenada1.
+ARREGLO VARIABLE coordenada2.
+ARREGLO VARIABLE coordenada3.
 
-fibonacci IMPORTA n EXPORTA fibonacci.
+coordenada1[1] = 1.
+coordenada1[2] = 1.
 
-IMPRIMIR EN CONSOLA fibonacci.
+coordenada2[1] = 3.
+coordenada2[2] = 2.
+
+coordenada3[1] = 2.
+coordenada3[2] = 3.
+
+ARREGLO VARIABLE coordenadas.
+coordenadas[1] = coordenada1.
+coordenadas[2] = coordenada2.
+coordenadas[3] = coordenada3.
+
+VARIABLE REAL area.
+areaTriangulo IMPORTA coordenadas
+			  EXPORTA area.
+
+IMPRIMIR EN CONSOLA "triangulo 1:"; area.
+
+coordenada1[1] = 1.
+coordenada1[2] = 1.
+
+coordenada2[1] = 3.
+coordenada2[2] = 3.
+
+coordenada3[1] = 3.
+coordenada3[2] = 1.
+
+coordenadas[1] = coordenada1.
+coordenadas[2] = coordenada2.
+coordenadas[3] = coordenada3.
+
+areaTriangulo IMPORTA coordenadas
+			  EXPORTA area.
+
+IMPRIMIR EN CONSOLA "triangulo 2:"; area.

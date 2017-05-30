@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalLinitParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_PROCEDIMIENTO", "RULE_IDENTIFICADOR", "RULE_FIN", "RULE_IMPORTA", "RULE_VARIABLE", "RULE_EXPORTA", "RULE_CONSTANTE", "RULE_AREGLO", "RULE_CUADRADOI", "RULE_CUADRADOD", "RULE_SI", "RULE_REPETIR", "RULE_VECES", "RULE_MIENTRAS", "RULE_SEA", "RULE_IMPRIMIR", "RULE_CAPTURAR", "RULE_ENTERA", "RULE_REAL", "RULE_LOGICA", "RULE_CARACTERES", "RULE_IGUAL", "RULE_SIGNOIGUAL", "RULE_SIGNOY", "RULE_SIGNOO", "RULE_MENOR", "RULE_SIGNOMENOR", "RULE_MENORIGUAL", "RULE_SIGNOMENORIGUAL", "RULE_MAYOR", "RULE_SIGNOMAYOR", "RULE_MAYORIGUAL", "RULE_SIGNOMAYORIGUAL", "RULE_DIFERENTE", "RULE_SIGNODIFERENTE", "RULE_SUMA", "RULE_RESTA", "RULE_MULTIPLICACION", "RULE_DIVISION", "RULE_MODULO", "RULE_POTENCIA", "RULE_NO", "RULE_IZQUIERDO", "RULE_DERECHO", "RULE_FRASE", "RULE_VERDADERO", "RULE_FALSO", "RULE_ENTERO", "RULE_NREAL", "RULE_SINO", "RULE_OTROCASO", "RULE_LINE_COMMENT", "RULE_WS", "RULE_INT", "RULE_ES", "RULE_ID", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ANY_OTHER", "'PROCEDIMIENTO'", "':'", "'FIN'", "'.'", "'IMPORTA'", "'VARIABLE'", "'EXPORTA'", "';'", "'CONSTANTE'", "'ARREGLO'", "'SI'", "'REPETIR'", "'VECES'", "'MIENTRAS'", "'SEA'", "'IMPRIMIR EN CONSOLA'", "'CAPTURAR DE CONSOLA'", "'ENTERA'", "'REAL'", "'LOGICA'", "'DE CARACTERES'", "'ES IGUAL A'", "'Y'", "'O'", "'ES MENOR A'", "'ES MENOR O IGUAL A'", "'ES MAYOR A'", "'ES MAYOR O IGUAL A'", "'ES DIFERENTE DE A'", "'NO'", "'O SI'", "'EN OTRO CASO'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_PROCEDIMIENTO", "RULE_IDENTIFICADOR", "RULE_FIN", "RULE_IMPORTA", "RULE_VARIABLE", "RULE_EXPORTA", "RULE_CONSTANTE", "RULE_AREGLO", "RULE_CUADRADOI", "RULE_CUADRADOD", "RULE_SI", "RULE_REPETIR", "RULE_VECES", "RULE_MIENTRAS", "RULE_SEA", "RULE_IMPRIMIR", "RULE_CAPTURAR", "RULE_ENTERA", "RULE_REAL", "RULE_LOGICA", "RULE_CARACTERES", "RULE_IGUAL", "RULE_SIGNOIGUAL", "RULE_SIGNOY", "RULE_SIGNOO", "RULE_MENOR", "RULE_SIGNOMENOR", "RULE_MENORIGUAL", "RULE_SIGNOMENORIGUAL", "RULE_MAYOR", "RULE_SIGNOMAYOR", "RULE_MAYORIGUAL", "RULE_SIGNOMAYORIGUAL", "RULE_DIFERENTE", "RULE_SIGNODIFERENTE", "RULE_SUMA", "RULE_RESTA", "RULE_MULTIPLICACION", "RULE_DIVISION", "RULE_MODULO", "RULE_POTENCIA", "RULE_NO", "RULE_IZQUIERDO", "RULE_DERECHO", "RULE_FRASE", "RULE_VERDADERO", "RULE_FALSO", "RULE_ENTERO", "RULE_NREAL", "RULE_SINO", "RULE_OTROCASO", "RULE_LINE_COMMENT", "RULE_WS", "RULE_INT", "RULE_ES", "RULE_ID", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ANY_OTHER", "'PROCEDIMIENTO'", "':'", "'FIN'", "'.'", "'IMPORTA'", "'VARIABLE'", "'EXPORTA'", "';'", "'CONSTANTE'", "'ARREGLO'", "'SI'", "'REPETIR'", "'VECES'", "'MIENTRAS'", "'SEA'", "'IMPRIMIR EN CONSOLA'", "'CAPTURAR DE CONSOLA'", "'ENTERA'", "'REAL'", "'LOGICA'", "'DE CARACTERES'", "'ES IGUAL A'", "'Y'", "'O'", "'ES MENOR A'", "'ES MENOR O IGUAL A'", "'ES MAYOR A'", "'ES MAYOR O IGUAL A'", "'ES DIFERENTE DE A'", "'NO SUCEDE'", "'VERDADERO'", "'FALSO'", "'O SI'", "'EN OTRO CASO'"
     };
     public static final int RULE_VECES=16;
     public static final int RULE_SIGNOMAYORIGUAL=36;
@@ -66,6 +66,8 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
     public static final int RULE_SIGNODIFERENTE=38;
     public static final int RULE_POTENCIA=44;
     public static final int T__95=95;
+    public static final int T__96=96;
+    public static final int T__97=97;
     public static final int RULE_EXPORTA=9;
     public static final int RULE_CARACTERES=24;
     public static final int RULE_IZQUIERDO=46;
@@ -3135,7 +3137,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
                 if ( (LA36_1==RULE_MIENTRAS||LA36_1==77) ) {
                     alt36=2;
                 }
-                else if ( (LA36_1==RULE_IDENTIFICADOR||(LA36_1>=RULE_NO && LA36_1<=RULE_IZQUIERDO)||(LA36_1>=RULE_FRASE && LA36_1<=RULE_NREAL)||LA36_1==93) ) {
+                else if ( (LA36_1==RULE_IDENTIFICADOR||(LA36_1>=RULE_NO && LA36_1<=RULE_IZQUIERDO)||(LA36_1>=RULE_FRASE && LA36_1<=RULE_NREAL)||(LA36_1>=93 && LA36_1<=95)) ) {
                     alt36=1;
                 }
                 else {
@@ -3148,7 +3150,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
             else if ( (LA36_0==RULE_REPETIR) ) {
                 int LA36_2 = input.LA(2);
 
-                if ( (LA36_2==RULE_IDENTIFICADOR||(LA36_2>=RULE_NO && LA36_2<=RULE_IZQUIERDO)||(LA36_2>=RULE_FRASE && LA36_2<=RULE_NREAL)||LA36_2==93) ) {
+                if ( (LA36_2==RULE_IDENTIFICADOR||(LA36_2>=RULE_NO && LA36_2<=RULE_IZQUIERDO)||(LA36_2>=RULE_FRASE && LA36_2<=RULE_NREAL)||(LA36_2>=93 && LA36_2<=95)) ) {
                     alt36=1;
                 }
                 else if ( (LA36_2==RULE_MIENTRAS||LA36_2==77) ) {
@@ -6098,7 +6100,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulenegacion"
-    // InternalLinit.g:2114:1: rulenegacion returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= 'NO' | this_NO_1= RULE_NO )* this_parentesis_2= ruleparentesis ) ;
+    // InternalLinit.g:2114:1: rulenegacion returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= 'NO SUCEDE' | this_NO_1= RULE_NO )* this_parentesis_2= ruleparentesis ) ;
     public final AntlrDatatypeRuleToken rulenegacion() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -6111,13 +6113,13 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalLinit.g:2120:2: ( ( (kw= 'NO' | this_NO_1= RULE_NO )* this_parentesis_2= ruleparentesis ) )
-            // InternalLinit.g:2121:2: ( (kw= 'NO' | this_NO_1= RULE_NO )* this_parentesis_2= ruleparentesis )
+            // InternalLinit.g:2120:2: ( ( (kw= 'NO SUCEDE' | this_NO_1= RULE_NO )* this_parentesis_2= ruleparentesis ) )
+            // InternalLinit.g:2121:2: ( (kw= 'NO SUCEDE' | this_NO_1= RULE_NO )* this_parentesis_2= ruleparentesis )
             {
-            // InternalLinit.g:2121:2: ( (kw= 'NO' | this_NO_1= RULE_NO )* this_parentesis_2= ruleparentesis )
-            // InternalLinit.g:2122:3: (kw= 'NO' | this_NO_1= RULE_NO )* this_parentesis_2= ruleparentesis
+            // InternalLinit.g:2121:2: ( (kw= 'NO SUCEDE' | this_NO_1= RULE_NO )* this_parentesis_2= ruleparentesis )
+            // InternalLinit.g:2122:3: (kw= 'NO SUCEDE' | this_NO_1= RULE_NO )* this_parentesis_2= ruleparentesis
             {
-            // InternalLinit.g:2122:3: (kw= 'NO' | this_NO_1= RULE_NO )*
+            // InternalLinit.g:2122:3: (kw= 'NO SUCEDE' | this_NO_1= RULE_NO )*
             loop68:
             do {
                 int alt68=3;
@@ -6133,12 +6135,12 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
                 switch (alt68) {
             	case 1 :
-            	    // InternalLinit.g:2123:4: kw= 'NO'
+            	    // InternalLinit.g:2123:4: kw= 'NO SUCEDE'
             	    {
             	    kw=(Token)match(input,93,FOLLOW_21); 
 
             	    				current.merge(kw);
-            	    				newLeafNode(kw, grammarAccess.getNegacionAccess().getNOKeyword_0_0());
+            	    				newLeafNode(kw, grammarAccess.getNegacionAccess().getNOSUCEDEKeyword_0_0());
             	    			
 
             	    }
@@ -6260,7 +6262,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
             if ( (LA69_0==RULE_IZQUIERDO) ) {
                 alt69=1;
             }
-            else if ( (LA69_0==RULE_IDENTIFICADOR||(LA69_0>=RULE_FRASE && LA69_0<=RULE_NREAL)) ) {
+            else if ( (LA69_0==RULE_IDENTIFICADOR||(LA69_0>=RULE_FRASE && LA69_0<=RULE_NREAL)||(LA69_0>=94 && LA69_0<=95)) ) {
                 alt69=2;
             }
             else {
@@ -6429,6 +6431,8 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
                 break;
             case RULE_VERDADERO:
             case RULE_FALSO:
+            case 94:
+            case 95:
                 {
                 alt71=3;
                 }
@@ -6636,60 +6640,135 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulelogico"
-    // InternalLinit.g:2308:1: rulelogico returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_VERDADERO_0= RULE_VERDADERO | this_FALSO_1= RULE_FALSO ) ;
+    // InternalLinit.g:2308:1: rulelogico returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= 'VERDADERO' | this_VERDADERO_1= RULE_VERDADERO ) | (kw= 'FALSO' | this_FALSO_3= RULE_FALSO ) ) ;
     public final AntlrDatatypeRuleToken rulelogico() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
-        Token this_VERDADERO_0=null;
-        Token this_FALSO_1=null;
+        Token kw=null;
+        Token this_VERDADERO_1=null;
+        Token this_FALSO_3=null;
 
 
         	enterRule();
 
         try {
-            // InternalLinit.g:2314:2: ( (this_VERDADERO_0= RULE_VERDADERO | this_FALSO_1= RULE_FALSO ) )
-            // InternalLinit.g:2315:2: (this_VERDADERO_0= RULE_VERDADERO | this_FALSO_1= RULE_FALSO )
+            // InternalLinit.g:2314:2: ( ( (kw= 'VERDADERO' | this_VERDADERO_1= RULE_VERDADERO ) | (kw= 'FALSO' | this_FALSO_3= RULE_FALSO ) ) )
+            // InternalLinit.g:2315:2: ( (kw= 'VERDADERO' | this_VERDADERO_1= RULE_VERDADERO ) | (kw= 'FALSO' | this_FALSO_3= RULE_FALSO ) )
             {
-            // InternalLinit.g:2315:2: (this_VERDADERO_0= RULE_VERDADERO | this_FALSO_1= RULE_FALSO )
-            int alt72=2;
-            int LA72_0 = input.LA(1);
+            // InternalLinit.g:2315:2: ( (kw= 'VERDADERO' | this_VERDADERO_1= RULE_VERDADERO ) | (kw= 'FALSO' | this_FALSO_3= RULE_FALSO ) )
+            int alt74=2;
+            int LA74_0 = input.LA(1);
 
-            if ( (LA72_0==RULE_VERDADERO) ) {
-                alt72=1;
+            if ( (LA74_0==RULE_VERDADERO||LA74_0==94) ) {
+                alt74=1;
             }
-            else if ( (LA72_0==RULE_FALSO) ) {
-                alt72=2;
+            else if ( (LA74_0==RULE_FALSO||LA74_0==95) ) {
+                alt74=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 72, 0, input);
+                    new NoViableAltException("", 74, 0, input);
 
                 throw nvae;
             }
-            switch (alt72) {
+            switch (alt74) {
                 case 1 :
-                    // InternalLinit.g:2316:3: this_VERDADERO_0= RULE_VERDADERO
+                    // InternalLinit.g:2316:3: (kw= 'VERDADERO' | this_VERDADERO_1= RULE_VERDADERO )
                     {
-                    this_VERDADERO_0=(Token)match(input,RULE_VERDADERO,FOLLOW_2); 
+                    // InternalLinit.g:2316:3: (kw= 'VERDADERO' | this_VERDADERO_1= RULE_VERDADERO )
+                    int alt72=2;
+                    int LA72_0 = input.LA(1);
 
-                    			current.merge(this_VERDADERO_0);
-                    		
+                    if ( (LA72_0==94) ) {
+                        alt72=1;
+                    }
+                    else if ( (LA72_0==RULE_VERDADERO) ) {
+                        alt72=2;
+                    }
+                    else {
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 72, 0, input);
 
-                    			newLeafNode(this_VERDADERO_0, grammarAccess.getLogicoAccess().getVERDADEROTerminalRuleCall_0());
-                    		
+                        throw nvae;
+                    }
+                    switch (alt72) {
+                        case 1 :
+                            // InternalLinit.g:2317:4: kw= 'VERDADERO'
+                            {
+                            kw=(Token)match(input,94,FOLLOW_2); 
+
+                            				current.merge(kw);
+                            				newLeafNode(kw, grammarAccess.getLogicoAccess().getVERDADEROKeyword_0_0());
+                            			
+
+                            }
+                            break;
+                        case 2 :
+                            // InternalLinit.g:2323:4: this_VERDADERO_1= RULE_VERDADERO
+                            {
+                            this_VERDADERO_1=(Token)match(input,RULE_VERDADERO,FOLLOW_2); 
+
+                            				current.merge(this_VERDADERO_1);
+                            			
+
+                            				newLeafNode(this_VERDADERO_1, grammarAccess.getLogicoAccess().getVERDADEROTerminalRuleCall_0_1());
+                            			
+
+                            }
+                            break;
+
+                    }
+
 
                     }
                     break;
                 case 2 :
-                    // InternalLinit.g:2324:3: this_FALSO_1= RULE_FALSO
+                    // InternalLinit.g:2332:3: (kw= 'FALSO' | this_FALSO_3= RULE_FALSO )
                     {
-                    this_FALSO_1=(Token)match(input,RULE_FALSO,FOLLOW_2); 
+                    // InternalLinit.g:2332:3: (kw= 'FALSO' | this_FALSO_3= RULE_FALSO )
+                    int alt73=2;
+                    int LA73_0 = input.LA(1);
 
-                    			current.merge(this_FALSO_1);
-                    		
+                    if ( (LA73_0==95) ) {
+                        alt73=1;
+                    }
+                    else if ( (LA73_0==RULE_FALSO) ) {
+                        alt73=2;
+                    }
+                    else {
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 73, 0, input);
 
-                    			newLeafNode(this_FALSO_1, grammarAccess.getLogicoAccess().getFALSOTerminalRuleCall_1());
-                    		
+                        throw nvae;
+                    }
+                    switch (alt73) {
+                        case 1 :
+                            // InternalLinit.g:2333:4: kw= 'FALSO'
+                            {
+                            kw=(Token)match(input,95,FOLLOW_2); 
+
+                            				current.merge(kw);
+                            				newLeafNode(kw, grammarAccess.getLogicoAccess().getFALSOKeyword_1_0());
+                            			
+
+                            }
+                            break;
+                        case 2 :
+                            // InternalLinit.g:2339:4: this_FALSO_3= RULE_FALSO
+                            {
+                            this_FALSO_3=(Token)match(input,RULE_FALSO,FOLLOW_2); 
+
+                            				current.merge(this_FALSO_3);
+                            			
+
+                            				newLeafNode(this_FALSO_3, grammarAccess.getLogicoAccess().getFALSOTerminalRuleCall_1_1());
+                            			
+
+                            }
+                            break;
+
+                    }
+
 
                     }
                     break;
@@ -6716,7 +6795,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulenumero"
-    // InternalLinit.g:2335:1: entryRulenumero returns [String current=null] : iv_rulenumero= rulenumero EOF ;
+    // InternalLinit.g:2351:1: entryRulenumero returns [String current=null] : iv_rulenumero= rulenumero EOF ;
     public final String entryRulenumero() throws RecognitionException {
         String current = null;
 
@@ -6724,8 +6803,8 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalLinit.g:2335:46: (iv_rulenumero= rulenumero EOF )
-            // InternalLinit.g:2336:2: iv_rulenumero= rulenumero EOF
+            // InternalLinit.g:2351:46: (iv_rulenumero= rulenumero EOF )
+            // InternalLinit.g:2352:2: iv_rulenumero= rulenumero EOF
             {
              newCompositeNode(grammarAccess.getNumeroRule()); 
             pushFollow(FOLLOW_1);
@@ -6752,7 +6831,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulenumero"
-    // InternalLinit.g:2342:1: rulenumero returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ENTERO_0= RULE_ENTERO | this_NREAL_1= RULE_NREAL ) ;
+    // InternalLinit.g:2358:1: rulenumero returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ENTERO_0= RULE_ENTERO | this_NREAL_1= RULE_NREAL ) ;
     public final AntlrDatatypeRuleToken rulenumero() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -6763,28 +6842,28 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalLinit.g:2348:2: ( (this_ENTERO_0= RULE_ENTERO | this_NREAL_1= RULE_NREAL ) )
-            // InternalLinit.g:2349:2: (this_ENTERO_0= RULE_ENTERO | this_NREAL_1= RULE_NREAL )
+            // InternalLinit.g:2364:2: ( (this_ENTERO_0= RULE_ENTERO | this_NREAL_1= RULE_NREAL ) )
+            // InternalLinit.g:2365:2: (this_ENTERO_0= RULE_ENTERO | this_NREAL_1= RULE_NREAL )
             {
-            // InternalLinit.g:2349:2: (this_ENTERO_0= RULE_ENTERO | this_NREAL_1= RULE_NREAL )
-            int alt73=2;
-            int LA73_0 = input.LA(1);
+            // InternalLinit.g:2365:2: (this_ENTERO_0= RULE_ENTERO | this_NREAL_1= RULE_NREAL )
+            int alt75=2;
+            int LA75_0 = input.LA(1);
 
-            if ( (LA73_0==RULE_ENTERO) ) {
-                alt73=1;
+            if ( (LA75_0==RULE_ENTERO) ) {
+                alt75=1;
             }
-            else if ( (LA73_0==RULE_NREAL) ) {
-                alt73=2;
+            else if ( (LA75_0==RULE_NREAL) ) {
+                alt75=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 73, 0, input);
+                    new NoViableAltException("", 75, 0, input);
 
                 throw nvae;
             }
-            switch (alt73) {
+            switch (alt75) {
                 case 1 :
-                    // InternalLinit.g:2350:3: this_ENTERO_0= RULE_ENTERO
+                    // InternalLinit.g:2366:3: this_ENTERO_0= RULE_ENTERO
                     {
                     this_ENTERO_0=(Token)match(input,RULE_ENTERO,FOLLOW_2); 
 
@@ -6797,7 +6876,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalLinit.g:2358:3: this_NREAL_1= RULE_NREAL
+                    // InternalLinit.g:2374:3: this_NREAL_1= RULE_NREAL
                     {
                     this_NREAL_1=(Token)match(input,RULE_NREAL,FOLLOW_2); 
 
@@ -6832,7 +6911,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulelistaArreglo"
-    // InternalLinit.g:2369:1: entryRulelistaArreglo returns [String current=null] : iv_rulelistaArreglo= rulelistaArreglo EOF ;
+    // InternalLinit.g:2385:1: entryRulelistaArreglo returns [String current=null] : iv_rulelistaArreglo= rulelistaArreglo EOF ;
     public final String entryRulelistaArreglo() throws RecognitionException {
         String current = null;
 
@@ -6840,8 +6919,8 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalLinit.g:2369:52: (iv_rulelistaArreglo= rulelistaArreglo EOF )
-            // InternalLinit.g:2370:2: iv_rulelistaArreglo= rulelistaArreglo EOF
+            // InternalLinit.g:2385:52: (iv_rulelistaArreglo= rulelistaArreglo EOF )
+            // InternalLinit.g:2386:2: iv_rulelistaArreglo= rulelistaArreglo EOF
             {
              newCompositeNode(grammarAccess.getListaArregloRule()); 
             pushFollow(FOLLOW_1);
@@ -6868,7 +6947,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulelistaArreglo"
-    // InternalLinit.g:2376:1: rulelistaArreglo returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= ';' this_expresion_1= ruleexpresion this_listaArreglo_2= rulelistaArreglo )? ;
+    // InternalLinit.g:2392:1: rulelistaArreglo returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= ';' this_expresion_1= ruleexpresion this_listaArreglo_2= rulelistaArreglo )? ;
     public final AntlrDatatypeRuleToken rulelistaArreglo() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -6882,19 +6961,19 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalLinit.g:2382:2: ( (kw= ';' this_expresion_1= ruleexpresion this_listaArreglo_2= rulelistaArreglo )? )
-            // InternalLinit.g:2383:2: (kw= ';' this_expresion_1= ruleexpresion this_listaArreglo_2= rulelistaArreglo )?
+            // InternalLinit.g:2398:2: ( (kw= ';' this_expresion_1= ruleexpresion this_listaArreglo_2= rulelistaArreglo )? )
+            // InternalLinit.g:2399:2: (kw= ';' this_expresion_1= ruleexpresion this_listaArreglo_2= rulelistaArreglo )?
             {
-            // InternalLinit.g:2383:2: (kw= ';' this_expresion_1= ruleexpresion this_listaArreglo_2= rulelistaArreglo )?
-            int alt74=2;
-            int LA74_0 = input.LA(1);
+            // InternalLinit.g:2399:2: (kw= ';' this_expresion_1= ruleexpresion this_listaArreglo_2= rulelistaArreglo )?
+            int alt76=2;
+            int LA76_0 = input.LA(1);
 
-            if ( (LA74_0==71) ) {
-                alt74=1;
+            if ( (LA76_0==71) ) {
+                alt76=1;
             }
-            switch (alt74) {
+            switch (alt76) {
                 case 1 :
-                    // InternalLinit.g:2384:3: kw= ';' this_expresion_1= ruleexpresion this_listaArreglo_2= rulelistaArreglo
+                    // InternalLinit.g:2400:3: kw= ';' this_expresion_1= ruleexpresion this_listaArreglo_2= rulelistaArreglo
                     {
                     kw=(Token)match(input,71,FOLLOW_21); 
 
@@ -6955,7 +7034,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulelistaCondicional"
-    // InternalLinit.g:2413:1: entryRulelistaCondicional returns [EObject current=null] : iv_rulelistaCondicional= rulelistaCondicional EOF ;
+    // InternalLinit.g:2429:1: entryRulelistaCondicional returns [EObject current=null] : iv_rulelistaCondicional= rulelistaCondicional EOF ;
     public final EObject entryRulelistaCondicional() throws RecognitionException {
         EObject current = null;
 
@@ -6963,8 +7042,8 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalLinit.g:2413:57: (iv_rulelistaCondicional= rulelistaCondicional EOF )
-            // InternalLinit.g:2414:2: iv_rulelistaCondicional= rulelistaCondicional EOF
+            // InternalLinit.g:2429:57: (iv_rulelistaCondicional= rulelistaCondicional EOF )
+            // InternalLinit.g:2430:2: iv_rulelistaCondicional= rulelistaCondicional EOF
             {
              newCompositeNode(grammarAccess.getListaCondicionalRule()); 
             pushFollow(FOLLOW_1);
@@ -6991,7 +7070,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulelistaCondicional"
-    // InternalLinit.g:2420:1: rulelistaCondicional returns [EObject current=null] : ( () ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )? ) ;
+    // InternalLinit.g:2436:1: rulelistaCondicional returns [EObject current=null] : ( () ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )? ) ;
     public final EObject rulelistaCondicional() throws RecognitionException {
         EObject current = null;
 
@@ -7012,14 +7091,14 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalLinit.g:2426:2: ( ( () ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )? ) )
-            // InternalLinit.g:2427:2: ( () ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )? )
+            // InternalLinit.g:2442:2: ( ( () ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )? ) )
+            // InternalLinit.g:2443:2: ( () ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )? )
             {
-            // InternalLinit.g:2427:2: ( () ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )? )
-            // InternalLinit.g:2428:3: () ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )?
+            // InternalLinit.g:2443:2: ( () ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )? )
+            // InternalLinit.g:2444:3: () ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )?
             {
-            // InternalLinit.g:2428:3: ()
-            // InternalLinit.g:2429:4: 
+            // InternalLinit.g:2444:3: ()
+            // InternalLinit.g:2445:4: 
             {
 
             				current = forceCreateModelElement(
@@ -7029,44 +7108,44 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalLinit.g:2435:3: ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )?
-            int alt77=3;
-            int LA77_0 = input.LA(1);
+            // InternalLinit.g:2451:3: ( ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) ) | ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) ) )?
+            int alt79=3;
+            int LA79_0 = input.LA(1);
 
-            if ( (LA77_0==RULE_SINO||LA77_0==94) ) {
-                alt77=1;
+            if ( (LA79_0==RULE_SINO||LA79_0==96) ) {
+                alt79=1;
             }
-            else if ( (LA77_0==RULE_OTROCASO||LA77_0==95) ) {
-                alt77=2;
+            else if ( (LA79_0==RULE_OTROCASO||LA79_0==97) ) {
+                alt79=2;
             }
-            switch (alt77) {
+            switch (alt79) {
                 case 1 :
-                    // InternalLinit.g:2436:4: ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) )
+                    // InternalLinit.g:2452:4: ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) )
                     {
-                    // InternalLinit.g:2436:4: ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) )
-                    // InternalLinit.g:2437:5: (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) )
+                    // InternalLinit.g:2452:4: ( (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) ) )
+                    // InternalLinit.g:2453:5: (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO ) ruleexpresion otherlv_4= ':' ( (lv_i_5_0= ruleinstrucciones ) ) ( (lv_l_6_0= rulelistaCondicional ) )
                     {
-                    // InternalLinit.g:2437:5: (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO )
-                    int alt75=2;
-                    int LA75_0 = input.LA(1);
+                    // InternalLinit.g:2453:5: (otherlv_1= 'O SI' | this_SINO_2= RULE_SINO )
+                    int alt77=2;
+                    int LA77_0 = input.LA(1);
 
-                    if ( (LA75_0==94) ) {
-                        alt75=1;
+                    if ( (LA77_0==96) ) {
+                        alt77=1;
                     }
-                    else if ( (LA75_0==RULE_SINO) ) {
-                        alt75=2;
+                    else if ( (LA77_0==RULE_SINO) ) {
+                        alt77=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 75, 0, input);
+                            new NoViableAltException("", 77, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt75) {
+                    switch (alt77) {
                         case 1 :
-                            // InternalLinit.g:2438:6: otherlv_1= 'O SI'
+                            // InternalLinit.g:2454:6: otherlv_1= 'O SI'
                             {
-                            otherlv_1=(Token)match(input,94,FOLLOW_21); 
+                            otherlv_1=(Token)match(input,96,FOLLOW_21); 
 
                             						newLeafNode(otherlv_1, grammarAccess.getListaCondicionalAccess().getOSIKeyword_1_0_0_0());
                             					
@@ -7074,7 +7153,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // InternalLinit.g:2443:6: this_SINO_2= RULE_SINO
+                            // InternalLinit.g:2459:6: this_SINO_2= RULE_SINO
                             {
                             this_SINO_2=(Token)match(input,RULE_SINO,FOLLOW_21); 
 
@@ -7101,11 +7180,11 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
                     					newLeafNode(otherlv_4, grammarAccess.getListaCondicionalAccess().getColonKeyword_1_0_2());
                     				
-                    // InternalLinit.g:2459:5: ( (lv_i_5_0= ruleinstrucciones ) )
-                    // InternalLinit.g:2460:6: (lv_i_5_0= ruleinstrucciones )
+                    // InternalLinit.g:2475:5: ( (lv_i_5_0= ruleinstrucciones ) )
+                    // InternalLinit.g:2476:6: (lv_i_5_0= ruleinstrucciones )
                     {
-                    // InternalLinit.g:2460:6: (lv_i_5_0= ruleinstrucciones )
-                    // InternalLinit.g:2461:7: lv_i_5_0= ruleinstrucciones
+                    // InternalLinit.g:2476:6: (lv_i_5_0= ruleinstrucciones )
+                    // InternalLinit.g:2477:7: lv_i_5_0= ruleinstrucciones
                     {
 
                     							newCompositeNode(grammarAccess.getListaCondicionalAccess().getIInstruccionesParserRuleCall_1_0_3_0());
@@ -7132,11 +7211,11 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalLinit.g:2478:5: ( (lv_l_6_0= rulelistaCondicional ) )
-                    // InternalLinit.g:2479:6: (lv_l_6_0= rulelistaCondicional )
+                    // InternalLinit.g:2494:5: ( (lv_l_6_0= rulelistaCondicional ) )
+                    // InternalLinit.g:2495:6: (lv_l_6_0= rulelistaCondicional )
                     {
-                    // InternalLinit.g:2479:6: (lv_l_6_0= rulelistaCondicional )
-                    // InternalLinit.g:2480:7: lv_l_6_0= rulelistaCondicional
+                    // InternalLinit.g:2495:6: (lv_l_6_0= rulelistaCondicional )
+                    // InternalLinit.g:2496:7: lv_l_6_0= rulelistaCondicional
                     {
 
                     							newCompositeNode(grammarAccess.getListaCondicionalAccess().getLListaCondicionalParserRuleCall_1_0_4_0());
@@ -7170,32 +7249,32 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalLinit.g:2499:4: ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) )
+                    // InternalLinit.g:2515:4: ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) )
                     {
-                    // InternalLinit.g:2499:4: ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) )
-                    // InternalLinit.g:2500:5: (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) )
+                    // InternalLinit.g:2515:4: ( (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) ) )
+                    // InternalLinit.g:2516:5: (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO ) otherlv_9= ':' ( (lv_i_10_0= ruleinstrucciones ) )
                     {
-                    // InternalLinit.g:2500:5: (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO )
-                    int alt76=2;
-                    int LA76_0 = input.LA(1);
+                    // InternalLinit.g:2516:5: (otherlv_7= 'EN OTRO CASO' | this_OTROCASO_8= RULE_OTROCASO )
+                    int alt78=2;
+                    int LA78_0 = input.LA(1);
 
-                    if ( (LA76_0==95) ) {
-                        alt76=1;
+                    if ( (LA78_0==97) ) {
+                        alt78=1;
                     }
-                    else if ( (LA76_0==RULE_OTROCASO) ) {
-                        alt76=2;
+                    else if ( (LA78_0==RULE_OTROCASO) ) {
+                        alt78=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 76, 0, input);
+                            new NoViableAltException("", 78, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt76) {
+                    switch (alt78) {
                         case 1 :
-                            // InternalLinit.g:2501:6: otherlv_7= 'EN OTRO CASO'
+                            // InternalLinit.g:2517:6: otherlv_7= 'EN OTRO CASO'
                             {
-                            otherlv_7=(Token)match(input,95,FOLLOW_6); 
+                            otherlv_7=(Token)match(input,97,FOLLOW_6); 
 
                             						newLeafNode(otherlv_7, grammarAccess.getListaCondicionalAccess().getENOTROCASOKeyword_1_1_0_0());
                             					
@@ -7203,7 +7282,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // InternalLinit.g:2506:6: this_OTROCASO_8= RULE_OTROCASO
+                            // InternalLinit.g:2522:6: this_OTROCASO_8= RULE_OTROCASO
                             {
                             this_OTROCASO_8=(Token)match(input,RULE_OTROCASO,FOLLOW_6); 
 
@@ -7219,11 +7298,11 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
                     					newLeafNode(otherlv_9, grammarAccess.getListaCondicionalAccess().getColonKeyword_1_1_1());
                     				
-                    // InternalLinit.g:2515:5: ( (lv_i_10_0= ruleinstrucciones ) )
-                    // InternalLinit.g:2516:6: (lv_i_10_0= ruleinstrucciones )
+                    // InternalLinit.g:2531:5: ( (lv_i_10_0= ruleinstrucciones ) )
+                    // InternalLinit.g:2532:6: (lv_i_10_0= ruleinstrucciones )
                     {
-                    // InternalLinit.g:2516:6: (lv_i_10_0= ruleinstrucciones )
-                    // InternalLinit.g:2517:7: lv_i_10_0= ruleinstrucciones
+                    // InternalLinit.g:2532:6: (lv_i_10_0= ruleinstrucciones )
+                    // InternalLinit.g:2533:7: lv_i_10_0= ruleinstrucciones
                     {
 
                     							newCompositeNode(grammarAccess.getListaCondicionalAccess().getIInstruccionesParserRuleCall_1_1_2_0());
@@ -7282,7 +7361,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulelistaImpresion"
-    // InternalLinit.g:2540:1: entryRulelistaImpresion returns [String current=null] : iv_rulelistaImpresion= rulelistaImpresion EOF ;
+    // InternalLinit.g:2556:1: entryRulelistaImpresion returns [String current=null] : iv_rulelistaImpresion= rulelistaImpresion EOF ;
     public final String entryRulelistaImpresion() throws RecognitionException {
         String current = null;
 
@@ -7290,8 +7369,8 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalLinit.g:2540:54: (iv_rulelistaImpresion= rulelistaImpresion EOF )
-            // InternalLinit.g:2541:2: iv_rulelistaImpresion= rulelistaImpresion EOF
+            // InternalLinit.g:2556:54: (iv_rulelistaImpresion= rulelistaImpresion EOF )
+            // InternalLinit.g:2557:2: iv_rulelistaImpresion= rulelistaImpresion EOF
             {
              newCompositeNode(grammarAccess.getListaImpresionRule()); 
             pushFollow(FOLLOW_1);
@@ -7318,7 +7397,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulelistaImpresion"
-    // InternalLinit.g:2547:1: rulelistaImpresion returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= ';' this_expresion_1= ruleexpresion this_listaImpresion_2= rulelistaImpresion )? ;
+    // InternalLinit.g:2563:1: rulelistaImpresion returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= ';' this_expresion_1= ruleexpresion this_listaImpresion_2= rulelistaImpresion )? ;
     public final AntlrDatatypeRuleToken rulelistaImpresion() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -7332,19 +7411,19 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalLinit.g:2553:2: ( (kw= ';' this_expresion_1= ruleexpresion this_listaImpresion_2= rulelistaImpresion )? )
-            // InternalLinit.g:2554:2: (kw= ';' this_expresion_1= ruleexpresion this_listaImpresion_2= rulelistaImpresion )?
+            // InternalLinit.g:2569:2: ( (kw= ';' this_expresion_1= ruleexpresion this_listaImpresion_2= rulelistaImpresion )? )
+            // InternalLinit.g:2570:2: (kw= ';' this_expresion_1= ruleexpresion this_listaImpresion_2= rulelistaImpresion )?
             {
-            // InternalLinit.g:2554:2: (kw= ';' this_expresion_1= ruleexpresion this_listaImpresion_2= rulelistaImpresion )?
-            int alt78=2;
-            int LA78_0 = input.LA(1);
+            // InternalLinit.g:2570:2: (kw= ';' this_expresion_1= ruleexpresion this_listaImpresion_2= rulelistaImpresion )?
+            int alt80=2;
+            int LA80_0 = input.LA(1);
 
-            if ( (LA78_0==71) ) {
-                alt78=1;
+            if ( (LA80_0==71) ) {
+                alt80=1;
             }
-            switch (alt78) {
+            switch (alt80) {
                 case 1 :
-                    // InternalLinit.g:2555:3: kw= ';' this_expresion_1= ruleexpresion this_listaImpresion_2= rulelistaImpresion
+                    // InternalLinit.g:2571:3: kw= ';' this_expresion_1= ruleexpresion this_listaImpresion_2= rulelistaImpresion
                     {
                     kw=(Token)match(input,71,FOLLOW_21); 
 
@@ -7428,17 +7507,17 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000006000000L,0x0000000000200000L});
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000000000100L,0x0000000000000020L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000006001000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x001F600000000020L,0x0000000020000000L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x001F600000000020L,0x00000000E0000000L});
     public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000000002000L,0x0000000000000080L});
     public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000000282L,0x0000000000000050L});
     public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000000000202L,0x0000000000000040L});
-    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x006000000018CD60L,0x00000000C0018F24L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0060000000000040L,0x00000000C0000004L});
+    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x006000000018CD60L,0x0000000300018F24L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0060000000000040L,0x0000000300000004L});
     public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000000010000L,0x0000000000001000L});
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000000020000L,0x0000000000002000L});
     public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000000040000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0006000000000000L});
+    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0006000000000000L,0x00000000C0000000L});
     public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000000018000002L,0x0000000000C00000L});
     public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000007FE6000002L,0x000000001F200000L});
     public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000018000000002L});
@@ -7446,7 +7525,7 @@ public class InternalLinitParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0000100000000002L});
     public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0000800000000000L});
     public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x006000000018CD20L,0x00000000C0018F20L});
-    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0060000000000000L,0x00000000C0000000L});
+    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x006000000018CD20L,0x0000000300018F20L});
+    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0060000000000000L,0x0000000300000000L});
 
 }

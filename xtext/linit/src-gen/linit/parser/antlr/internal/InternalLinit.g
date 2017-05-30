@@ -2120,10 +2120,10 @@ rulenegacion returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
 }:
 	(
 		(
-			kw='NO'
+			kw='NO SUCEDE'
 			{
 				$current.merge(kw);
-				newLeafNode(kw, grammarAccess.getNegacionAccess().getNOKeyword_0_0());
+				newLeafNode(kw, grammarAccess.getNegacionAccess().getNOSUCEDEKeyword_0_0());
 			}
 			    |
 			this_NO_1=RULE_NO
@@ -2313,21 +2313,37 @@ rulelogico returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 	leaveRule();
 }:
 	(
-		this_VERDADERO_0=RULE_VERDADERO
-		{
-			$current.merge(this_VERDADERO_0);
-		}
-		{
-			newLeafNode(this_VERDADERO_0, grammarAccess.getLogicoAccess().getVERDADEROTerminalRuleCall_0());
-		}
+		(
+			kw='VERDADERO'
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getLogicoAccess().getVERDADEROKeyword_0_0());
+			}
+			    |
+			this_VERDADERO_1=RULE_VERDADERO
+			{
+				$current.merge(this_VERDADERO_1);
+			}
+			{
+				newLeafNode(this_VERDADERO_1, grammarAccess.getLogicoAccess().getVERDADEROTerminalRuleCall_0_1());
+			}
+		)
 		    |
-		this_FALSO_1=RULE_FALSO
-		{
-			$current.merge(this_FALSO_1);
-		}
-		{
-			newLeafNode(this_FALSO_1, grammarAccess.getLogicoAccess().getFALSOTerminalRuleCall_1());
-		}
+		(
+			kw='FALSO'
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getLogicoAccess().getFALSOKeyword_1_0());
+			}
+			    |
+			this_FALSO_3=RULE_FALSO
+			{
+				$current.merge(this_FALSO_3);
+			}
+			{
+				newLeafNode(this_FALSO_3, grammarAccess.getLogicoAccess().getFALSOTerminalRuleCall_1_1());
+			}
+		)
 	)
 ;
 

@@ -275,9 +275,9 @@ public class LinitSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * logico:
-	 * 	VERDADERO
+	 * 	( 'VERDADERO' | VERDADERO )
 	 * 	|
-	 * 	FALSO
+	 * 	( 'FALSO' | FALSO )
 	 * ;
 	 */
 	protected String getlogicoToken(EObject semanticObject, RuleCall ruleCall, INode node) {

@@ -1,0 +1,25 @@
+PROCEDIMIENTO fibonacci IMPORTA VARIABLE ENTERA n
+						EXPORTA VARIABLE ENTERA suma:
+	
+	SI n = 0:
+		suma = 0.
+	O SI n = 1:
+		suma = 1.
+	EN OTRO CASO:
+		VARIABLE ENTERA suma_1.
+		VARIABLE ENTERA suma_2.
+		fibonacci IMPORTA n - 1
+				  EXPORTA suma_1.
+		fibonacci IMPORTA n - 2
+				  EXPORTA suma_2.
+		suma = suma_1 + suma_2.
+	FIN.
+	
+FIN.
+
+VARIABLE ENTERA n ES IGUAL A 30.
+VARIABLE ENTERA fibonacci.
+
+fibonacci IMPORTA n EXPORTA fibonacci.
+
+IMPRIMIR EN CONSOLA fibonacci.

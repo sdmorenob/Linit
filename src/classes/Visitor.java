@@ -203,7 +203,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             if( table.get( name.toLowerCase( ) ) != null ){
                 int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                 int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
-                error( line, col, " La variable \"" + name + "\" ya ha sido declarada." );
+                error( line, col, " La constante \"" + name + "\" ya ha sido declarada." );
             }else{
                 Object aux = visitTipoVariable( ctx.tipoVariable( ) );
                 Object aux2 = visitExpresion( ctx.igualdad( ).expresion( ) );
@@ -213,7 +213,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                     int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                     int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
                     String type = translateType( aux );
-                    error( line, col, " El valor asignado a la variable \"" + name + "\" no es de tipo " + type + "." );
+                    error( line, col, " El valor asignado a la constante \"" + name + "\" no es de tipo " + type + "." );
                 }
                 final Object aux3 = aux2;
                 table.put( name.toLowerCase( ), aux3 );
@@ -390,6 +390,9 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             String type = translateType( exp );
             error( line, col, " No se puede evaluar la expresion de tipo \"" + type +
               "\" como una expresion de tipo LOGICO." );
+        }
+        for( String g : table2.keySet( ) ){
+            table2.replace( g, table.get( g ) );
         }
         table = table2;
         return null;

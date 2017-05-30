@@ -2048,9 +2048,9 @@ rule__Negacion__Alternatives_0
 	}
 :
 	(
-		{ before(grammarAccess.getNegacionAccess().getNOKeyword_0_0()); }
-		'NO'
-		{ after(grammarAccess.getNegacionAccess().getNOKeyword_0_0()); }
+		{ before(grammarAccess.getNegacionAccess().getNOSUCEDEKeyword_0_0()); }
+		'NO SUCEDE'
+		{ after(grammarAccess.getNegacionAccess().getNOSUCEDEKeyword_0_0()); }
 	)
 	|
 	(
@@ -2123,15 +2123,57 @@ rule__Logico__Alternatives
 	}
 :
 	(
-		{ before(grammarAccess.getLogicoAccess().getVERDADEROTerminalRuleCall_0()); }
-		RULE_VERDADERO
-		{ after(grammarAccess.getLogicoAccess().getVERDADEROTerminalRuleCall_0()); }
+		{ before(grammarAccess.getLogicoAccess().getAlternatives_0()); }
+		(rule__Logico__Alternatives_0)
+		{ after(grammarAccess.getLogicoAccess().getAlternatives_0()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getLogicoAccess().getFALSOTerminalRuleCall_1()); }
+		{ before(grammarAccess.getLogicoAccess().getAlternatives_1()); }
+		(rule__Logico__Alternatives_1)
+		{ after(grammarAccess.getLogicoAccess().getAlternatives_1()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Logico__Alternatives_0
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getLogicoAccess().getVERDADEROKeyword_0_0()); }
+		'VERDADERO'
+		{ after(grammarAccess.getLogicoAccess().getVERDADEROKeyword_0_0()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getLogicoAccess().getVERDADEROTerminalRuleCall_0_1()); }
+		RULE_VERDADERO
+		{ after(grammarAccess.getLogicoAccess().getVERDADEROTerminalRuleCall_0_1()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Logico__Alternatives_1
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getLogicoAccess().getFALSOKeyword_1_0()); }
+		'FALSO'
+		{ after(grammarAccess.getLogicoAccess().getFALSOKeyword_1_0()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getLogicoAccess().getFALSOTerminalRuleCall_1_1()); }
 		RULE_FALSO
-		{ after(grammarAccess.getLogicoAccess().getFALSOTerminalRuleCall_1()); }
+		{ after(grammarAccess.getLogicoAccess().getFALSOTerminalRuleCall_1_1()); }
 	)
 ;
 finally {

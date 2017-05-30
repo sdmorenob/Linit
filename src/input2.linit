@@ -1,19 +1,42 @@
-PROCEDIMIENTO fibonacci IMPORTA VARIABLE ENTERA n
-						EXPORTA VARIABLE ENTERA suma:
+PROCEDIMIENTO procedimiento_sin_parametros:
 	
-	VARIABLE ENTERA contador ES IGUAL A 0.
-	VARIABLE ENTERA fibonacci1 ES IGUAL A 0.
-	VARIABLE ENTERA fibonacci2 ES IGUAL A 1.
-	REPETIR n VECES:
-		suma = fibonacci1 + fibonacci2.
-		fibonacci1 = fibonacci2.
-		fibonacci2 = suma.
-	FIN.
+	IMPRIMIR EN CONSOLA "procedimiento sin parametros".
+	
 FIN.
 
-VARIABLE ENTERA n ES IGUAL A 30.
-VARIABLE ENTERA fibonacci.
+PROCEDIMIENTO procedimiento_con_parametros
+			  IMPORTA VARIABLE DE CARACTERES texto;
+			  		  		   LOGICA imprime
+			  EXPORTA VARIABLE ENTERA numero:
 
-fibonacci IMPORTA n EXPORTA fibonacci.
+	SI imprime:
+		IMPRIMIR EN CONSOLA texto.
+	O SI NO SUCEDE imprime:
+		IMPRIMIR EN CONSOLA "procedimiento con parametros que no imprime"; imprime.
+	FIN.
+	
+	numero = 5.
 
-IMPRIMIR EN CONSOLA fibonacci.
+FIN.
+
+VARIABLE ENTERA numero.
+VARIABLE ENTERA iteracion.
+
+procedimiento_sin_parametros.
+
+procedimiento_con_parametros IMPORTA "procedimiento con parámetros"; VERDADERO
+							 EXPORTA numero.
+IMPRIMIR EN CONSOLA "".							 
+IMPRIMIR EN CONSOLA numero.
+IMPRIMIR EN CONSOLA "".
+
+REPETIR numero VECES:
+	IMPRIMIR EN CONSOLA numero.
+FIN.
+
+IMPRIMIR EN CONSOLA "".
+
+REPETIR MIENTRAS numero ES MENOR A iteracion SEA FALSO:
+	IMPRIMIR EN CONSOLA iteracion.
+	iteracion = iteracion + 1.
+FIN.
