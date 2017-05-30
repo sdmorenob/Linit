@@ -4,14 +4,27 @@ import java.io.Console;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.lang.Math;
+import org.antlr.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.ParserRuleContext;
 
 
 @SuppressWarnings("unchecked")
-public class Visitor<T> extends GramaticaBaseVisitor<T>{
+public class Visitor<T> extends GramaticaBaseVisitor<T>  implements Runnable{
 
     private HashMap<String, Object> table = new HashMap<>( );
     private HashMap<String, Object> tableF = new HashMap<>( );
     private ArrayList<Object> parametros;
+
+    Linit applet;
+    ParseTree tree;
+    Thread hilo;
+    Object returnOb = null;
+	  int linea = 0;
+	  public boolean stepDone = true;
+
+    public Visitor( ProyectoCristian applet){
+      this.applet = applet;
+    }
 
     @Override
     public T visitPrograma( GramaticaParser.ProgramaContext ctx ){
@@ -34,6 +47,10 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             if( tableF.get( name.toLowerCase( ) ) != null ){
                 int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                 int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                applet.fill(247,7,7);
+            		applet.rect(20, 56+10*2*line, 445, 3);
+            		applet.fill(255);
+                applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                 error( line, col, " El procedimiento \"" + name + "\" ya ha sido declarado." );
             }else{
                 visitParametros( ctx.parametros( ) );
@@ -92,6 +109,10 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             if( table.get( name.toLowerCase( ) ) != null ){
                 int line = ctx.PYC( ).getSymbol( ).getLine( );
                 int col = ctx.PYC( ).getSymbol( ).getCharPositionInLine( ) + 2;
+                applet.fill(247,7,7);
+            		applet.rect(20, 56+10*2*line, 445, 3);
+            		applet.fill(255);
+                applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                 error( line, col, " El parametro \"" + name + "\" ya ha sido declarado." );
             }else{
                 if( ctx.tipoVariable( ) != null ){
@@ -122,6 +143,10 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                 if( table.get( name.toLowerCase( ) ) != null ){
                     int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                     int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                    applet.fill(247,7,7);
+                		applet.rect(20, 56+10*2*line, 445, 3);
+                		applet.fill(255);
+                    applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                     error( line, col, " El parametro \"" + name + "\" ya ha sido declarado." );
                 }else{
                     Object aux = visitTipoVariable( ctx.tipoVariable( ) );
@@ -177,11 +202,18 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
     @Override
     public T visitNominacion( GramaticaParser.NominacionContext ctx ){
 
+        linea++;
         if( ctx.VARIABLE( ) != null ){
             String name = ctx.IDENTIFICADOR( ).getText( );
             if( table.get( name.toLowerCase( ) ) != null ){
                 int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                 int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                linea=line;
+                applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
+                applet.fill(247,7,7);
+            		applet.rect(20, 56+10*2*line, 445, 3);
+            		applet.fill(255);
+                applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                 error( line, col, " La variable \"" + name + "\" ya ha sido declarada." );
             }else{
                 Object aux = visitTipoVariable( ctx.tipoVariable( ) );
@@ -193,16 +225,29 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                         int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                         int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
                         String type = translateType( aux );
+                        linea=line;
+                        applet.rect(680, 50, 40*line, 40);
+                        applet.text("Type" + type, 670, 80);
                         error( line, col, " El valor asignado a la variable \"" + name + "\" no es de tipo " + type + "." );
                     }
                 }
                 table.put( name.toLowerCase( ), aux );
+                applet.fill(142,57,96);
+                applet.text("Var: " + name, 670, 40+(30*linea));
+              	applet.fill(112,221,0);
+              	applet.rect(850, 20+(30*linea), 100,20);
+                try {
+                    Thread.sleep(1000);
+        				} catch (InterruptedException e) {
+        					   e.printStackTrace();
+        				}
             }
         }else{
             String name = ctx.IDENTIFICADOR( ).getText( );
             if( table.get( name.toLowerCase( ) ) != null ){
                 int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                 int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                 error( line, col, " La constante \"" + name + "\" ya ha sido declarada." );
             }else{
                 Object aux = visitTipoVariable( ctx.tipoVariable( ) );
@@ -230,6 +275,11 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
         if( table.get( name.toLowerCase( ) ) != null ){
             int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
             int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+            applet.fill(247,7,7);
+        		applet.rect(20, 56+10*2*line, 445, 3);
+        		applet.fill(255);
+          	applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
+            applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
             error( line, col, " La variable \"" + name + "\" ya ha sido declarada." );
         }else{
             ArrayList<T> aux = new ArrayList<>( );
@@ -247,6 +297,10 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                 if( table.get( name.toLowerCase( ) ) == null ){
                     int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                     int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
+                    applet.fill(247,7,7);
+                		applet.rect(20, 56+10*2*line, 445, 3);
+                		applet.fill(255);
+                    applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                     error( line, col, " El arreglo \"" + name + "\" aun no ha sido declarado." );
                 }else{
                     Object aux = table.get( name.toLowerCase( ) );
@@ -257,6 +311,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                     }else{
                         int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                         int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
+                        applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                         error( line, col, " La variable \"" + name + "\" no es un ARREGLO." );
                     }
                 }
@@ -264,6 +319,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                 if( table.get( name.toLowerCase( ) ) == null ){
                     int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                     int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
+                    applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                     error( line, col, " La variable \"" + name + "\" aun no ha sido declarada." );
                 }else{
                     Object aux = table.get( name.toLowerCase( ) );
@@ -273,6 +329,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                     }else{
                         int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                         int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
+                        applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                         String type = translateType( aux );
                         error( line, col, " El valor asignado a la variable \"" + name + "\" no es de tipo " + type + "." );
                     }
@@ -283,6 +340,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             if( tableF.get( name.toLowerCase( ) ) == null ){
                 int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                 int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
+                applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                 error( line, col, " El procedimiento \"" + name + "\" no ha sido declarado." );
             }else{
                 ArrayList<Object> function = new ArrayList<>( (ArrayList) tableF.get( name.toLowerCase( ) ) );
@@ -387,6 +445,7 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
         }else{
             int line = ctx.SI( ).getSymbol( ).getLine( );
             int col = ctx.SI( ).getSymbol( ).getCharPositionInLine( ) + 1;
+            applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
             String type = translateType( exp );
             error( line, col, " No se puede evaluar la expresion de tipo \"" + type +
               "\" como una expresion de tipo LOGICO." );
@@ -420,6 +479,10 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                 int line = ctx.REPETIR( ).getSymbol( ).getLine( );
                 int col = ctx.REPETIR( ).getSymbol( ).getCharPositionInLine( ) + 1;
                 String type = translateType( exp );
+                applet.fill(247,7,7);
+            		applet.rect(20, 56+10*2*line, 445, 3);
+            		applet.fill(255);
+                applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                 error( line, col, " No se puede evaluar la expresion de tipo \"" + type +
                   "\" como una expresion de tipo \"LOGICO\"." );
             }
@@ -488,6 +551,10 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
         if( data == null ){
             int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
             int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+            applet.fill(247,7,7);
+        		applet.rect(20, 56+10*2*line, 445, 3);
+        		applet.fill(255);
+            applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
             error( line, col, " La variable \"" + name + "\" aun no ha sido declarada." );
         }else{
             String sc = System.console( ).readLine( );
@@ -910,6 +977,10 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             if( data == null ){
                 int line = ctx.IDENTIFICADOR( ).getSymbol( ).getLine( );
                 int col = ctx.IDENTIFICADOR( ).getSymbol( ).getCharPositionInLine( ) + 1;
+                applet.fill(247,7,7);
+            		applet.rect(20, 56+10*2*line, 445, 3);
+            		applet.fill(255);
+                applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                 error( line, col, " La variable \"" + name + "\" aun no ha sido declarada." );
             }
             if( ctx.CUADRADOI( ) != null ){
@@ -1066,6 +1137,10 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
                         }else{
                             int line = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getLine( );
                             int col = ctx.IDENTIFICADOR( 0 ).getSymbol( ).getCharPositionInLine( ) + 1;
+                            applet.fill(247,7,7);
+                        		applet.rect(20, 56+10*2*line, 445, 3);
+                        		applet.fill(255);
+                            applet.text("Line:"+ line + "Col" + col, 1150, 220+(20*line));
                             String type1 = translateType( aux1 );
                             String type2 = translateType( aux2 );
                             error( line, col, " El tipo de dato asignado es distinto al tipo de dato apuntado\n" +
@@ -1093,20 +1168,48 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
 
     private void imprimir( Object exp, int line, int col ){
 
+        int t  = (int) applet.x;
+        int y  = (int) applet.y;
+        applet.fill(247,7,7);
+        applet.rect(20, 56+10*2*line, 445, 3);
+        applet.fill(255);
+        applet.text("Line:"+ line + "Col" + col, 1150, 180+(20*line));
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        applet.demora();
+        applet.rect(20, 56+10*2*line, 445, 3);
+        applet.fill(0);
+
         if( exp instanceof Integer ){
             System.out.print( exp );
             System.out.print( " " );
+            applet.text(""+exp, 853, 32+(30*linea));
+            applet.text(""+exp, 630, 500+(5*line));
         }else if( exp instanceof String ){
             System.out.print( ((String) exp).replace( "\"", "" ) );
             System.out.print( " " );
+            applet.text(""+exp, 800, 50+(30*line));
+            applet.text(""+exp, 853, 32+(30*linea));
+            applet.text((String) exp, 630, 500+(20*line));
+            applet.text(" ", 630+(5*col), 430);
         }else if( exp instanceof Double ){
             System.out.print( exp.toString( ).replace( ".", "," ) );
             System.out.print( " " );
+            applet.text(""+exp, 800, 50+(30*line));
+            applet.text(""+exp, 630, 430+(20*line));
         }else if( exp instanceof Boolean ){
-            if( (Boolean) exp )
+            if( (Boolean) exp ){
                 System.out.print( "VERDADERO" );
-            else
+                applet.text("verdader", 800, 50+(30*line));
+            	  applet.text("VERDADERO", 630, 430+(20*line));
+            }else{
                 System.out.print( "FALSO" );
+                applet.text("falso", 800, 50+(30*line));
+                applet.text("FALSO", 630, 430+(20*line));
+            }
             System.out.print( " " );
         }else if( exp instanceof ArrayList ){
             System.out.print( "[ " );
@@ -1122,6 +1225,11 @@ public class Visitor<T> extends GramaticaBaseVisitor<T>{
             error( line, col, " No es posible imprimir el tipo de dato referido." );
 
         return;
+    }
+
+    @Override
+    public void run() {
+        applet.fill(155,47,12);
     }
 
 }

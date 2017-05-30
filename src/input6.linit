@@ -49,6 +49,7 @@ lista[2] = nota.
 lista_estudiantes[tamano] = lista.
 tamano = tamano + 1.
 
+
 ARREGLO VARIABLE lista2.
 nombre = "Paula Diaz".
 nota = 5,0.

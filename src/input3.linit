@@ -15,6 +15,7 @@ PROCEDIMIENTO fibonacci IMPORTA VARIABLE ENTERA n
 			fibonacci2 = suma.
 		FIN.
 	FIN.
+
 FIN.
 
 VARIABLE ENTERA n ES IGUAL A 30.

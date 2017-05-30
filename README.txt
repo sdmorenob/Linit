@@ -98,4 +98,35 @@ ECLIPSE
  Eclipse, sobre la carpeta linit, pulsar click derecho sobre la carpeta, dar cli-
  ck sobre Run As > Eclipse Application.
 
+ Al abrir la nueva ventana de Eclipse, crear un nuevo proyecto como Java project.
+ Colocar el nombre deseado al proyecto.
+ En la carpeta src que viene por defecto, pegar los archivos que están dentro de
+ nuestro proyecto LINIT (Especialmente el package classes).
+ Luego de esto, nos percatamos de que nos aparece  un error en nuestro proyecto,
+ para solucionarlo damos click derecho sobre nuestro nuevo proyecto y selecciona-
+ mos Build Path > Configure Build Path...
+ En Java Build Path, en la pestaña  libraries, nos debe  aparecer la opción "Add
+ External JASs...". Allí buscamos y seleccionamos el .jar de ANTLR4 y le damos en
+ OK
+
+ En este punto, ya podemos abrir el ambiente de desarrollo LINIT.
+ Los archivos deben ser generados dentro del proyecto nuevo.
+ Para ejecutar la aplicación con eclipse, damos click derecho en el archivo .linit
+ y seleccionamos Run As > Run Configurations...
+ Allí debe aparecer el screen de configuraciones de la ejecución.
+ Creamos un Java  Application (doble click derecho  sobre este) y completamos lo
+ siguiente:
+    En la pestaña main.
+        Project: Seleccionamos nuestro proyecto.
+        Main class: classes.Interprete
+    En la pestaña Arguments.
+        Program arguments: ${file_prompt}
+ Dar click en Run.
+
+ ¡Listo! La adecuación del entorno de desarrollo quedó completa.
+ Ahora siempre que se ejecute un archivo de tipo .linit, se hará mediante la con-
+ figuración que realizamos.
+
+*********************************
+PROCESSING
  
