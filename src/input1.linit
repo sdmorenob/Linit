@@ -1,0 +1,40 @@
+CONSTANTE ENTERA entero1 ES IGUAL A 12.
+CONSTANTE ENTERA entero2 = 3.
+
+IMPRIMIR EN CONSOLA entero1 + entero2.
+IMPrImIr En COnsoLa entero1 - entero2.
+Imprimir En Consola entero1 MODULO entero2.
+IMPRIMIR EN CONSOLA entero1 * entero2.
+IMPRIMIR EN CONSOLA entero1 / entero2.
+IMPRIMIR EN CONSOLA entero1 ** entero2.
+
+VARIABLE REAL real = entero1 / entero2.
+VARiAblE Real real2 Es IguAl A 3,14159.
+
+IMPRIMIR EN CONSOLA "".
+IMPRIMIR EN CONSOLA rEAL.
+IMPRIMIR EN CONSOLA rEAl2.
+
+VARIABLE DE CARACTERES texto1 ES IGUAL A "Esto".
+VARIABLE DE CARACTERES texto2 ES IGUAL A "es".
+VARIABLE DE CARACTERES texto3 ES IGUAL A "una".
+VARIABLE DE CARACTERES texto4 ES IGUAL A "prueba".
+
+IMPRIMIR EN CONSOLA "".
+IMPRIMIR EN CONSOLA texto1 + texto2 + texto3 + texto4.
+IMPRIMIR EN CONSOLA texto1 ; texto2 ; texto3 ; texto4.
+
+CONSTANTE LOGICA verdad = VERDADERO.
+VARIABLE LOGICA falso = FALSO.
+
+IMPRIMIR EN CONSOLA "".
+IMPRIMIR EN CONSOLA verdad.
+IMPRIMIR EN CONSOLA falso.
+
+ARREGLO VARIABLE arreglo.
+
+IMPRIMIR EN CONSOLA "".
+IMpRImiR En COnSOLA aRReglo.
+arreGlO[1] = "Primera posición".
+aRRegLo[2] = 2.
+IMPRIMIR EN CONSOLA arreglo.

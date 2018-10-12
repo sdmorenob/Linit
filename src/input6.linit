@@ -1,0 +1,114 @@
+PROCEDIMIENTO ordenar_por_nota IMPORTA ARREGLO VARIABLE lista_estudiantes;
+                                       ENTERA numero_estudiantes
+                               EXPORTA ARREGLO VARIABLE lista_ordenada:
+
+    VARIABLE ENTERA posicion.
+    VARIABLE ENTERA iteracion = 1.
+
+    REPETIR numero_estudiantes - 1 VECES:
+        ARREGLO VARIABLE aux.
+        buscar_mayor IMPORTA lista_estudiantes; numero_estudiantes
+                     EXPORTA posicion.
+		aux[1] = lista_estudiantes[posicion;1].
+		aux[2] = lista_estudiantes[posicion;2].
+        lista_ordenada[iteracion] = aux.
+        lista_estudiantes[posicion;2] = 0,0.
+        iteracion = iteracion + 1.
+    FIN.
+
+FIN.
+
+PROCEDIMIENTO buscar_mayor IMPORTA ARREGLO VARIABLE lista_estudiantes;
+                                   ENTERA numero_estudiantes
+                           EXPORTA VARIABLE ENTERA posicion:
+
+    VARIABLE REAL calificacion.
+    VARIABLE ENTERA iteracion = 1.
+    posicion = iteracion.
+    REPETIR MIENTRAS numero_estudiantes ES MENOR O IGUAL A iteracion SEA FALSO:
+        SI (calificacion < lista_estudiantes[iteracion; 2]):
+            calificacion = lista_estudiantes[iteracion; 2].
+            posicion = iteracion.
+        FIN.
+        iteracion = iteracion + 1.
+    FIN.
+
+FIN.
+
+VARIABLE ENTERA tamano = 1.
+ARREGLO VARIABLE lista_estudiantes.
+
+VARIABLE DE CARACTERES nombre.
+VARIABLE REAL nota.
+
+ARREGLO VARIABLE lista.
+nombre = "Pedro Alvarez".
+nota = 4,1.
+lista[1] = nombre.
+lista[2] = nota.
+lista_estudiantes[tamano] = lista.
+tamano = tamano + 1.
+
+
+ARREGLO VARIABLE lista2.
+nombre = "Paula Diaz".
+nota = 5,0.
+lista2[1] = nombre.
+lista2[2] = nota.
+lista_estudiantes[tamano] = lista2.
+tamano = tamano + 1.
+
+ARREGLO VARIABLE lista3.
+nombre = "Gio Jimenez".
+nota = 2,7.
+lista3[1] = nombre.
+lista3[2] = nota.
+lista_estudiantes[tamano] = lista3.
+tamano = tamano + 1.
+
+ARREGLO VARIABLE lista4.
+nombre = "Hermes Lopez".
+nota = 4,5.
+lista4[1] = nombre.
+lista4[2] = nota.
+lista_estudiantes[tamano] = lista4.
+tamano = tamano + 1.
+
+ARREGLO VARIABLE lista5.
+nombre = "Sebastian Moreno".
+nota = 5,0.
+lista5[1] = nombre.
+lista5[2] = nota.
+lista_estudiantes[tamano] = lista5.
+tamano = tamano + 1.
+
+ARREGLO VARIABLE lista6.
+nombre = "Cristian Orjuela".
+nota = 5,0.
+lista6[1] = nombre.
+lista6[2] = nota.
+lista_estudiantes[tamano] = lista6.
+tamano = tamano + 1.
+
+ARREGLO VARIABLE lista7.
+nombre = "Lorena Rodriguez".
+nota = 3,7.
+lista7[1] = nombre.
+lista7[2] = nota.
+lista_estudiantes[tamano] = lista7.
+tamano = tamano + 1.
+
+ARREGLO VARIABLE lista8.
+nombre = "Valentina Zapata".
+nota = 1,6.
+lista8[1] = nombre.
+lista8[2] = nota.
+lista_estudiantes[tamano] = lista8.
+tamano = tamano + 1.
+
+IMPRIMIR EN CONSOLA lista_estudiantes.
+
+ordenar_por_nota IMPORTA lista_estudiantes; tamano
+                 EXPORTA lista_estudiantes.
+
+IMPRIMIR EN CONSOLA lista_estudiantes.
